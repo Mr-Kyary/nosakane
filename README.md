@@ -1,0 +1,2 @@
+# nosakane
+sudo rm saknae

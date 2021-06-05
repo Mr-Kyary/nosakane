@@ -1,3 +1,3 @@
 # nosakane
 We no longer need Sakane sensei...
-Finally, we do, we believe!
+Finally, we believe!

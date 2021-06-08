@@ -1,24 +1,16 @@
 # README
+# 概要
+学生の就職活動（会社訪問、面接）の予定をGoogleカレンダーに書き出すシステムです。
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+学生は、WEBブラウザもしくはLINE上で就職活動の予定の作成・編集等ができます。
 
-Things you may want to cover:
+管理者（先生側）は、以下のようなことが出来ます。
 
-* Ruby version
+- 各学生の就職活動予定の管理
+- 会社一覧の追加、削除
+- 投稿種別の追加、削除
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# システム情報
+- 開発環境
+  - Ruby version<br>2.6.6
+  - Ruby on Rails version<br>6.1.3.2 

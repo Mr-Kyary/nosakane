@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_08_055545) do
+ActiveRecord::Schema.define(version: 2021_06_11_050545) do
+
+  create_table "companies", force: :cascade do |t|
+    t.integer "company_id"
+    t.string "company_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "report_types", force: :cascade do |t|
+    t.integer "report_type_id"
+    t.string "report_type_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "reports", force: :cascade do |t|
     t.integer "reports_id"
@@ -25,6 +39,7 @@ ActiveRecord::Schema.define(version: 2021_06_08_055545) do
   create_table "students", force: :cascade do |t|
     t.string "student_id"
     t.string "name"
+    t.string "line_account_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

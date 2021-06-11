@@ -3,6 +3,7 @@ class CreateStudents < ActiveRecord::Migration[6.1]
     create_table :students do |t|
       t.string :student_id
       t.string :name
+      t.string :line_account_id
 
       t.timestamps
     end

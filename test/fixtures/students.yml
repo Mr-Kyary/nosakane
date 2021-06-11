@@ -3,7 +3,9 @@
 one:
   student_id: MyString
   name: MyString
+  line_account_id: MyString
 
 two:
   student_id: MyString
   name: MyString
+  line_account_id: MyString

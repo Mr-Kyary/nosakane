@@ -18,12 +18,12 @@
 
   <div class="field">
     <%= form.label :student_id %>
-    <%= form.text_field :student_id %>
+    <%= form.collection_select :student_id,Student.all,:id,:name %>
   </div>
 
   <div class="field">
     <%= form.label :report_type_id %>
-    <%= form.number_field :report_type_id %>
+    <%= form.select :report_type_id,[["会社訪問","1"],["面接","2"],["筆記試験","3"]] %>
   </div>
 
   <div class="field">

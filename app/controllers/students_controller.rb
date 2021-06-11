@@ -1,6 +1,12 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: %i[ show edit update destroy ]
 
+  client = Line::Bot::Client.new { |config|
+    config.channel_secret = "69491d998b2b18464aecaad438f4cb8b"
+    config.channel_token = "Vis5b0xw34f4fIAFgWPuoALv3IzZ6hTldQOjTdAEb98hYP/vN/zcBqu7s5HgjsivhXv9OzZIzW3Tre1KAKfdFP06y25K9Q7wN9gBPnpxmo6m17/wA44UUovl8p0EbUBG3JMs+L1DI8v3VmTXFzhIiAdB04t89/1O/w1cDnyilFU="
+  }
+
+
   # GET /students or /students.json
   def index
     @students = Student.all
@@ -65,5 +71,17 @@ class StudentsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def student_params
       params.require(:student).permit(:student_id, :name, :line_account_id)
+    end
+
+    ##LINE
+    response = client.get_profile("<userId>")
+    case response
+    when Net::HTTPSuccess then
+      contact = JSON.parse(response.body)
+      p contact['displayName']
+      p contact['pictureUrl']
+      p contact['statusMessage']
+    else
+      p "#{response.code} #{response.body}"
     end
 end

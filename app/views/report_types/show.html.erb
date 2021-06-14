@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Report type:</strong>
+  <%= @report_type.report_type_id %>
+</p>
+
+<p>
+  <strong>Report type name:</strong>
+  <%= @report_type.report_type_name %>
+</p>
+
+<%= link_to 'Edit', edit_report_type_path(@report_type) %> |
+<%= link_to 'Back', report_types_path %>

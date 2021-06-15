@@ -1,16 +1,6 @@
 class LineBotController < ApplicationController
   require 'line/bot'
 
-  private
-
-# 環境変数はheroku側で管理
-  def client
-    @client ||= Line::Bot::Client.new { |config|
-      config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
-      config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
-    }
-  end
-
   def callback
     body = request.body.read
     signature = request.env['HTTP_X_LINE_SIGNATURE']
@@ -35,5 +25,14 @@ class LineBotController < ApplicationController
     end
 
     head :ok
+  end
+
+  private
+  # 環境変数はheroku側で管理
+  def client
+    @client ||= Line::Bot::Client.new { |config|
+      config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
+      config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
+    }
   end
 end

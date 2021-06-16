@@ -15,16 +15,21 @@
       <nav>
         <ul>
           <% if admin_signed_in? %>
-            <li>管理者</li>
             <li>
-              <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
+              <%= link_to "管理者ログアウト", destroy_admin_session_path, method: :delete %>
             </li>
           <% end %>
-            <li>管理者としてログイン</li>
             <li>
-              <%= link_to "ログイン", new_admin_session_path %>
+              <%= link_to "管理者としてログイン", new_admin_session_path %>
             </li>
-
+          <% if user_signed_in? %>
+            <li>
+              <%= link_to "ユーザーログアウト", destroy_user_session_path, method: :delete %>
+            </li>
+          <% end %>
+            <li>
+              <%= link_to "ユーザーとしてログイン", new_user_session_path %>
+            </li>
         </ul>
       </nav>
     </header>

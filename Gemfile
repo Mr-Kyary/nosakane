@@ -57,11 +57,8 @@ group :production do
   gem 'pg'
 end
 
-<<<<<<< HEAD
-=======
 gem 'line-bot-api'
 
 gem 'google-api-client'
 
 gem 'devise'
->>>>>>> 6ad94e5bc491316e03fadef92c8556b747acb4cb

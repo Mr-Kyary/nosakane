@@ -18,7 +18,6 @@ class LineBotController < ApplicationController
             type: 'text',
             text: event.message['text']
           }
-          p message[:type]
         end
       end
       client.reply_message(event['replyToken'], message)

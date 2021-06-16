@@ -40,3 +40,5 @@ yarn-debug.log*
 .yarn-integrity
 
 Gemfile.lock
+# Google認証情報
+client_secret.json

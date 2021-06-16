@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
+  # ログイン関連(devise)
   devise_for :admins, controllers: {
     sessions: 'admins/sessions'
   }
+  
+  devise_for :users, controllers: {
+    sessions: 'users/sessions'
+  }
+
   get 'calendar/index'
   get 'calendar/callback'
   resources :students
@@ -9,7 +15,6 @@ Rails.application.routes.draw do
   resources :reports
   resources :report_types
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-
   post '/callback' => 'line_bot#callback'
 
   get "calendar/index", to:"calendar#index"

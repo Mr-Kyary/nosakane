@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  devise_for :admins, controllers: {
+    sessions: 'admins/sessions'
+  }
   get 'calendar/index'
   get 'calendar/callback'
   resources :students

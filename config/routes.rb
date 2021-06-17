@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   get 'calendar/index'
   get 'calendar/callback'
+  root :to => 'home#top'
   resources :students
   resources :companies
   resources :reports

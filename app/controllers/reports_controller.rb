@@ -22,6 +22,7 @@ class ReportsController < ApplicationController
   # POST /reports or /reports.json
   def create
     @report = Report.new(report_params)
+    @report.student_id = Student.find_by()
 
     respond_to do |format|
       if @report.save

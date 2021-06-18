@@ -8,6 +8,7 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
   </head>
 
   <body>
@@ -15,7 +16,7 @@
       <nav>
         <ul>
           <% if admin_signed_in? %>
-            <li>管理者としてログイン中</li>
+            <strong><li>管理者としてログイン中</li></strong>
             <li>
               <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
             </li>
@@ -29,7 +30,7 @@
 
         <ul>
           <% if user_signed_in? %>
-            <li>ユーザーとしてログイン中</li>
+            <strong><li>ユーザーとしてログイン中</li></strong>
             <li>
               <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
             </li>
@@ -41,6 +42,25 @@
           </li>
         </ul>
       </nav>
+      <% if user_signed_in? %>
+      <div>
+        <table border="2" bordercolor="red">
+          <th colspan="2">User</th>
+          <tr>
+            <td>user id</td>
+            <td><%= current_user.id %></td>
+          </tr>
+          <tr>
+            <td>email</td>
+            <td><%= current_user.email %></td>
+          </tr>
+          <tr>
+            <td>student_id</td>
+            <td><%= current_user.student_id %></td>
+          </tr>
+        </table>
+      </div>
+      <% end %>
     </header>
     <%= yield %>
   </body>

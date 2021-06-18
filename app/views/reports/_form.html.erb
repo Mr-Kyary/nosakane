@@ -12,28 +12,18 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :reports_id %>
-    <%= form.number_field :reports_id %>
+    <%= form.label :report_type_id %>
+    <%= form.collection_select :report_type_id, ReportType.all, :id, :report_type_name %>
   </div>
 
   <div class="field">
-    <%= form.label :名前 %>
-    <%= form.collection_select :student_id,Student.all,:id,:name %>
+    <%= form.label :planned_at %>
+    <%= form.datetime_select :planned_at %>
   </div>
 
   <div class="field">
-    <%= form.label :投稿種別 %>
-    <%= form.select :report_type_id,[["会社訪問","1"],["面接","2"],["筆記試験","3"]] %>
-  </div>
-
-  <div class="field">
-    <%= form.label :日にち %>
-    <%= form.date_select(:planned_date, { use_month_numbers: true }) %>
-  </div>
-
-  <div class="field">
-    <%= form.label :会社名 %>
-    <%= form.collection_select :company_id,Company.all,:id,:company_name %>
+    <%= form.label :report_detail %>
+    <%= form.text_area :report_detail %>
   </div>
 
   <div class="actions">

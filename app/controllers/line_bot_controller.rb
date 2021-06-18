@@ -14,11 +14,10 @@ class LineBotController < ApplicationController
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
-          message = client.get_profile("<userId>")
-          # {
-          #   type: 'text',
-          #   text: event.message['text']
-          # }
+          message = {
+            type: 'text',
+            text: event.message[userId]
+          }
         end
       end
       client.reply_message(event['replyToken'], message)

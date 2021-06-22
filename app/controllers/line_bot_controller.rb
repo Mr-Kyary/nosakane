@@ -29,7 +29,7 @@ class LineBotController < ApplicationController
           student.flg = 1
           message = {
                   type: 'text',
-                  text: "友達登録完了。\n学生ナンバーを入力してください！"
+                  text: "友達登録完了。"
                 }
           client.reply_message(event['replyToken'], message)
           student.save

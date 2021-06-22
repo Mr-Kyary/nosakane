@@ -21,24 +21,28 @@ class LineBotController < ApplicationController
       # イベントのユーザーのlineIdを取得
       userId = event['source']['userId']
       # Studentテーブルにイベントのユーザーが存在しているか検索
+      student = Studnets.where(line_id: userId).first
 
       case event
-        when Line::Bot::Event::Follow#友達追加
-          student = Student.new
-          student.line_account_id = userId
-          student.flg = 1
-          message = {
-                  type: 'text',
-                  text: "友達登録完了。\n学生ナンバーを入力してください！"
-                }
-          client.reply_message(event['replyToken'], message)
-          student.save
-        when Line::Bot::Event::Unfollow#友達解除
-          user.destroy
-          s = Student.where(student_id: user.student_id).first
-          s.register = false
-          s.save
-        end
+      when Line::Bot::Event::Follow#友達追加
+        student = Student.new
+        student.line_account_id = userId
+        student.flg = 1
+        message = {
+                type: 'text',
+                text: "友達登録完了。"
+              }
+        client.reply_message(event['replyToken'], message)
+        student.save
+      when Line::Bot::Event::Unfollow#友達解除
+        student.destroy
+        s = Student.where(student_id: student.student_id).first
+        s.register = false
+        s.save
+      when Line::Bot::Event::Message# メッセージ受信
+        userId = event['source']['userId']
+        
+      end
       client.reply_message(event['replyToken'], message)
     end
 

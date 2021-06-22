@@ -28,26 +28,28 @@
             <li>
               <%= link_to "管理者ログアウト", destroy_admin_session_path, method: :delete %>
             </li>
+          <% else %>
+            <li>管理者としてログインしていません</li>
           <% end %>
-            <li>
-              <%= link_to "管理者としてログイン", new_admin_session_path %>
-            </li>
+          <li>
+            <%= link_to "管理者ログイン", new_admin_session_path %>
+          </li>
+        </ul>
+
+        <ul>
           <% if user_signed_in? %>
+            <li>ユーザーとしてログイン中</li>
             <li>
-              <%= link_to "ユーザーログアウト", destroy_user_session_path, method: :delete %>
+              <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
             </li>
+          <% else %>
+            <li>ユーザーとしてログインしていません</li>
           <% end %>
-            <li>
-              <%= link_to "ユーザーとしてログイン", new_user_session_path %>
-            </li>
+          <li>
+            <%= link_to "ユーザーログイン", new_user_session_path %>
+          </li>
         </ul>
       </nav>
-      <p id="test"></p>
-    <script>
-        $(function(){
-            jQuery('#test').text('Hello World!');
-        });
-    </script>
     </header>
     <%= yield %>
   </body>

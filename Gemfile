@@ -57,6 +57,8 @@ group :production do
   gem 'pg'
 end
 
+
+# LINEボット
 gem 'line-bot-api'
 
 gem 'google-api-client'

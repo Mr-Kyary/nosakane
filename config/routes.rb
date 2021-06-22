@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
   # ログイン関連(devise)
-  devise_for :admins, controllers: {
-    sessions: 'admins/sessions'
-  }
-  
   devise_for :users, controllers: {
     sessions: 'users/sessions'
+  }
+  devise_for :admins, controllers: {
+    sessions: 'admins/sessions'
   }
 
   get 'calendar/index'

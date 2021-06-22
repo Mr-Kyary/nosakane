@@ -15,7 +15,7 @@ class CalendarController < ApplicationController
   # callback URL
   OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'
 
-  # 事前認証
+  # 事前認証 エラー：credentilsがnil
   class << self
     def authorize
       client_id = Google::Auth::ClientId.from_file("client_secret.json")

@@ -21,7 +21,6 @@ Rails.application.routes.draw do
   get "calendar/index", to:"calendar#index"
   get "oauth2callback", to:"calendar#callback"
 
-  root :to => 'home#top'
   get 'home/students'
   get 'home/reports'
   get 'home/companies'

@@ -14,12 +14,10 @@ class ReportsTest < ApplicationSystemTestCase
     visit reports_url
     click_on "New Report"
 
-    fill_in "Company", with: @report.company_id
-    fill_in "Planed date", with: @report.planed_date
+    fill_in "Planned at", with: @report.planned_at
     fill_in "Report detail", with: @report.report_detail
-    fill_in "Report", with: @report.report_id
     fill_in "Report type", with: @report.report_type_id
-    fill_in "Student", with: @report.student_id
+    fill_in "User", with: @report.user_id
     click_on "Create Report"
 
     assert_text "Report was successfully created"
@@ -30,12 +28,10 @@ class ReportsTest < ApplicationSystemTestCase
     visit reports_url
     click_on "Edit", match: :first
 
-    fill_in "Company", with: @report.company_id
-    fill_in "Planed date", with: @report.planed_date
+    fill_in "Planned at", with: @report.planned_at
     fill_in "Report detail", with: @report.report_detail
-    fill_in "Report", with: @report.report_id
     fill_in "Report type", with: @report.report_type_id
-    fill_in "Student", with: @report.student_id
+    fill_in "User", with: @report.user_id
     click_on "Update Report"
 
     assert_text "Report was successfully updated"

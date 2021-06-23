@@ -1,8 +1,6 @@
 class HomeController < ApplicationController
   def top
-  
   end
-  def students
-  
+  def student
   end
 end

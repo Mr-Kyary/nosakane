@@ -44,5 +44,5 @@ Gemfile.lock
 # Google認証情報
 client_secret.json
 
-#Webpacker関連
+# Webpacker関連
 package-lock.json

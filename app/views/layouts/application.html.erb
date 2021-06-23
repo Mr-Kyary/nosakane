@@ -9,16 +9,23 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
   </head>
 
-  <body>
+  <body class="container">
     <header>
+      <nav>
+      <div class="alert alert-primary" role="alert">
+        <strong>Well done!</strong> You successfully read this
+        important alert message.
+      </div>
+      </nav>
       <nav>
         <ul>
           <% if admin_signed_in? %>
-            <li>管理者としてログイン中</li>
             <li>
-              <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
+              <%= link_to "管理者ログアウト", destroy_admin_session_path, method: :delete %>
             </li>
           <% else %>
             <li>管理者としてログインしていません</li>

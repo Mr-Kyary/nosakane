@@ -1,5 +1,7 @@
 <h1>New Report</h1>
-
+<%# unless user_signed_in? %>
+  <%# to_signin %>
+<%# end %>
 <%= render 'form', report: @report %>
 
 <%= link_to 'Back', reports_path %>

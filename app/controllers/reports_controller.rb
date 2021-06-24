@@ -21,8 +21,20 @@ class ReportsController < ApplicationController
 
   # POST /reports or /reports.json
   def create
+    # テスト用
+    r = Random.new
+    time = Time.local(2020, 6, 6, 0, 0, 0) + r.rand(24*60*60)
+
     @report = Report.new(report_params)
     @report.user_id = current_user.id
+
+    CalendarController::insert_gcal_event(
+      time,
+      time + r.rand(24*60*60),
+      "面接",
+      "一次面接。筆記試験（技能＋SPI）あり。",
+      "出雲市斐川町"
+    )
 
     respond_to do |format|
       if @report.save

@@ -40,5 +40,9 @@ yarn-debug.log*
 .yarn-integrity
 
 Gemfile.lock
+
 # Google認証情報
 client_secret.json
+
+# Webpacker関連
+package-lock.json

@@ -17,13 +17,15 @@
     <header>
       <nav>
       <div class="alert alert-primary" role="alert">
-        <strong>Well done!</strong> You successfully read this
+        Well done!</strong> You successfully read this
         important alert message.
       </div>
       </nav>
       <nav>
         <ul>
           <% if admin_signed_in? %>
+           <li><strong>管理者としてログイン中</strong></li>
+            <li>
             <li>
               <%= link_to "管理者ログアウト", destroy_admin_session_path, method: :delete %>
             </li>
@@ -37,7 +39,7 @@
 
         <ul>
           <% if user_signed_in? %>
-            <li>ユーザーとしてログイン中</li>
+            <li><strong>ユーザーとしてログイン中</strong></li>
             <li>
               <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
             </li>

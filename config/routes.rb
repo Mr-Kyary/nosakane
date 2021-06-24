@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  get 'home/top'
+  root to: 'home#top'
+
   # ログイン関連(devise)
   devise_for :users, controllers: {
     sessions: 'users/sessions'

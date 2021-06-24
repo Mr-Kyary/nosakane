@@ -1,7 +1,24 @@
 <h1>ホーム</h1>
 
-<td><%= link_to("ホーム", "http://localhost:3000/home/top") %></td>
-<td>　　<%= link_to("学生一覧", "http://localhost:3000/home/students") %></td>
-<td>　　<%= link_to("会社情報", "http://localhost:3000/home/companies") %></td>
-<td>　　<%= link_to("レポート", "http://localhost:3000/home/reports") %></td>
-
+<table class="table">
+  <thead>
+    <tr>
+      <th>index</th>
+      <th>new</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row"><%= link_to("学生一覧", "/students") %></th>
+      <td><%= link_to("新規作成フォーム", "/students/new") %></td>
+    </tr>
+    <tr>
+      <th scope="row"><%= link_to("会社情報", "/companies") %></th>
+      <td><%= link_to("新規作成フォーム", "/companies/new") %></td>
+    </tr>
+    <tr>
+      <th scope="row"><%= link_to("レポート", "/reports") %></th>
+      <td><%= link_to("新規作成フォーム", "/reports/new") %></td>
+    </tr>
+  </tbody>
+</table>

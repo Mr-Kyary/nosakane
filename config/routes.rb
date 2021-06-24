@@ -9,15 +9,16 @@ Rails.application.routes.draw do
     sessions: 'admins/sessions'
   }
 
-  get 'calendar/index'
-  get 'calendar/callback'
-
+  ############resources############
   resources :students
   resources :companies
   resources :report_types
   resources :reports
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  post '/callback' => 'line_bot#callback'
+  ############resources ここまで############
+
+  ############get############
+  get 'calendar/index'
+  get 'calendar/callback'
 
   get "calendar/index", to:"calendar#index"
   get "oauth2callback", to:"calendar#callback"
@@ -25,4 +26,9 @@ Rails.application.routes.draw do
   get 'home/students'
   get 'home/reports'
   get 'home/companies'
+  ############get ここまで############
+
+  ############post############
+  post '/callback', to:'line_bot#callback'
+  ############post ここまで############
 end

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'home/top'
   # ログイン関連(devise)
   devise_for :users, controllers: {
     sessions: 'users/sessions'
@@ -19,4 +20,8 @@ Rails.application.routes.draw do
 
   get "calendar/index", to:"calendar#index"
   get "oauth2callback", to:"calendar#callback"
+
+  get 'home/students'
+  get 'home/reports'
+  get 'home/companies'
 end

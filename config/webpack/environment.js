@@ -1,9 +1,8 @@
 const { environment } = require('@rails/webpacker')
 
 module.exports = environment
-=======
 const webpack = require('webpack')
-=======
+
 environment.plugins.prepend('VueLoaderPlugin', new VueLoaderPlugin())
 environment.loaders.prepend('vue', vue)
 

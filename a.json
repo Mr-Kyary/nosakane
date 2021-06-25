@@ -1,0 +1,101 @@
+[
+    {
+        "id": 1,
+        "user_id": 1,
+        "report_type_id": 1,
+        "planned_at": "2021-06-18T05:42:00.000Z",
+        "report_detail": "aaaaa",
+        "created_at": "2021-06-18T05:44:50.213Z",
+        "updated_at": "2021-06-18T05:44:50.213Z"
+    },
+    {
+        "id": 2,
+        "user_id": 1,
+        "report_type_id": 0,
+        "planned_at": "2021-06-18T06:29:00.000Z",
+        "report_detail": "",
+        "created_at": "2021-06-18T06:29:14.092Z",
+        "updated_at": "2021-06-18T06:29:14.092Z"
+    },
+    {
+        "id": 3,
+        "user_id": 1,
+        "report_type_id": 0,
+        "planned_at": "2021-06-18T06:29:00.000Z",
+        "report_detail": "",
+        "created_at": "2021-06-18T06:29:20.459Z",
+        "updated_at": "2021-06-18T06:29:20.459Z"
+    },
+    {
+        "id": 4,
+        "user_id": 2,
+        "report_type_id": null,
+        "planned_at": "2021-06-18T06:41:00.000Z",
+        "report_detail": "aaaa",
+        "created_at": "2021-06-18T06:41:29.955Z",
+        "updated_at": "2021-06-18T06:41:29.955Z"
+    },
+    {
+        "id": 5,
+        "user_id": 2,
+        "report_type_id": 3,
+        "planned_at": "2021-06-18T06:42:00.000Z",
+        "report_detail": "aaaa",
+        "created_at": "2021-06-18T06:42:06.182Z",
+        "updated_at": "2021-06-18T06:42:06.182Z"
+    },
+    {
+        "id": 6,
+        "user_id": 2,
+        "report_type_id": 4,
+        "planned_at": "2021-06-18T06:42:00.000Z",
+        "report_detail": "",
+        "created_at": "2021-06-18T06:42:12.681Z",
+        "updated_at": "2021-06-18T06:42:12.681Z"
+    },
+    {
+        "id": 7,
+        "user_id": 1,
+        "report_type_id": 1,
+        "planned_at": "2021-06-24T07:24:00.000Z",
+        "report_detail": "aaaaa",
+        "created_at": "2021-06-24T07:24:18.037Z",
+        "updated_at": "2021-06-24T07:24:18.037Z"
+    },
+    {
+        "id": 8,
+        "user_id": 1,
+        "report_type_id": 1,
+        "planned_at": null,
+        "report_detail": "あああ",
+        "created_at": "2021-06-24T07:27:59.344Z",
+        "updated_at": "2021-06-24T07:27:59.344Z"
+    },
+    {
+        "id": 9,
+        "user_id": 1,
+        "report_type_id": 1,
+        "planned_at": "2021-06-25T02:30:00.000Z",
+        "report_detail": "",
+        "created_at": "2021-06-25T02:30:44.043Z",
+        "updated_at": "2021-06-25T02:30:44.043Z"
+    },
+    {
+        "id": 10,
+        "user_id": 1,
+        "report_type_id": 4,
+        "planned_at": "2021-06-08T08:20:00.000Z",
+        "report_detail": "aaaa",
+        "created_at": "2021-06-25T02:30:54.955Z",
+        "updated_at": "2021-06-25T02:30:54.955Z"
+    },
+    {
+        "id": 11,
+        "user_id": 1,
+        "report_type_id": 2,
+        "planned_at": "2021-06-08T02:49:00.000Z",
+        "report_detail": "",
+        "created_at": "2021-06-25T02:49:17.674Z",
+        "updated_at": "2021-06-25T02:49:17.674Z"
+    }
+]

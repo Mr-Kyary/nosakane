@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   root to: 'home#top'
 
+  get 'calendar/index', to: 'calendar#index'
+
+  # namespace :calendar do
+  #   get '/', action: 'index'
+  # end
+
   # ログイン関連(devise)
   devise_for :users, controllers: {
     sessions: 'users/sessions'
@@ -17,12 +23,6 @@ Rails.application.routes.draw do
   ############resources ここまで############
 
   ############get############
-  get 'calendar/index'
-  get 'calendar/callback'
-
-  get "calendar/index", to:"calendar#index"
-  get "oauth2callback", to:"calendar#callback"
-
   get 'home/students'
   get 'home/reports'
   get 'home/companies'

@@ -26,7 +26,7 @@ class CalendarController < ApplicationController
       credentials = authorizer.get_credentials(USER_ID)
       if credentials.nil?
         url = authorizer.get_authorization_url base_url: OOB_URI
-        redirect_to url
+        p url
         code = gets
         credentials = authorizer.get_and_store_credentials_from_code(
           user_id: user_id, code: code, base_url: OOB_URI

@@ -28,14 +28,6 @@ class ReportsController < ApplicationController
     @report = Report.new(report_params)
     @report.user_id = current_user.id
 
-    CalendarController::insert_gcal_event(
-      time,
-      time + r.rand(24*60*60),
-      "面接",
-      "一次面接。筆記試験（技能＋SPI）あり。",
-      "出雲市斐川町"
-    )
-
     respond_to do |format|
       if @report.save
         format.html { redirect_to @report, notice: "Report was successfully created." }

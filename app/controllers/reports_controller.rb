@@ -21,10 +21,6 @@ class ReportsController < ApplicationController
 
   # POST /reports or /reports.json
   def create
-    # テスト用
-    r = Random.new
-    time = Time.local(2020, 6, 6, 0, 0, 0) + r.rand(24*60*60)
-
     @report = Report.new(report_params)
     @report.user_id = current_user.id
 

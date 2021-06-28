@@ -43,7 +43,7 @@ class LineBotController < ApplicationController
         userId = event['source']['userId']
         
       end
-      client.reply_message(event['replyToken'], message)
+      client.reply_message(event['replyT oken'], message)
     end
 
     head :ok

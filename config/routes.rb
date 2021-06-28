@@ -3,13 +3,10 @@ Rails.application.routes.draw do
 
   get 'calendar/index', to: 'calendar#index'
 
-  # namespace :calendar do
-  #   get '/', action: 'index'
-  # end
-
   # ログイン関連(devise)
   devise_for :users, controllers: {
-    sessions: 'users/sessions'
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
   }
   devise_for :admins, controllers: {
     sessions: 'admins/sessions'

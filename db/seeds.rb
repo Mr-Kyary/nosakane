@@ -32,7 +32,6 @@ end
 
 ########################生徒
 require 'json'
-
 hash = JSON.parse(
   '[{
     "student_id": 211001,

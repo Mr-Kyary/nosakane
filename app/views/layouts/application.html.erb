@@ -67,8 +67,8 @@
     </header>
     <%= yield %>
     <footer>
-      <div class="alert alert-primary" role="alert">
-        <% if user_signed_in? %>
+      <% if user_signed_in? %>
+        <div class="alert alert-primary" role="alert">
           <table border="1" class="table table-bordered border-primary">
             <tr>
               <th>ユーザーID</th>
@@ -79,10 +79,11 @@
               <td><%= current_user.id %></td>
               <td><%= current_user.email %></td>
               <td><%= current_user.student_id %></td>
+              <td><%= Student.find_by(student_id: current_user.student_id).name %></td>
             </tr>
           </table>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </footer>
   </body>
 </html>

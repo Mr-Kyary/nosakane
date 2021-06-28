@@ -337,7 +337,6 @@ hash = JSON.parse(
     "student_id": 204012,
     "name": "古川望久"
   }]', symbolize_names: true)
-
 hash.each do |h|
   Student.create!(student_id: h[:student_id].to_i, name: h[:name].to_s)
 end

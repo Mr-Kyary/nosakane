@@ -71,4 +71,28 @@ class LineBotController < ApplicationController
 
     head :ok
   end
+
+  private
+  def check_button(msg)
+    {
+      "type": "template",
+      "altText": "this is a confirm template",
+      "template": {
+        "type": "confirm",
+        "actions": [
+            {
+              "type": "message",
+              "label": "はい",
+              "text": "はい"
+            },
+            {
+              "type": "message",
+              "label": "いいえ",
+              "text": "いいえ"
+            }
+            ],
+              "text": msg
+          }
+    }
+  end
 end

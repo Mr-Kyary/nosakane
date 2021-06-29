@@ -30,11 +30,30 @@ class LineBotController < ApplicationController
         student = Student.new
         user = User.new
         student.line_account_id = userId
-        student.flg = 1
+
         message = {
-                type: 'text',
-                text: "友達登録完了。"
-              }
+          type: 'text',
+          text: "nosakaneへようこそ\n学生番号を入力してください。"
+        }
+        client.reply_message(event['replyToken'], message)
+
+        # Studentテーブルにあるか確認
+        if s = Student.where(student_id: event.message['text']).first
+          # 生徒の名前の確認
+          message = check_button(s.name + "さんですか？")
+          user.find_by(name: ).student_id = s.student_id
+          client.reply_message(event['replyToken'], message)
+        else # 生徒の名前を登録する
+          message = {
+          type: 'text',
+          text: "該当の学生ナンバーがありません。\nもう一度学生ナンバーを入力してください"
+          }
+          client.reply_message(event['replyToken'], message)
+
+        message = {
+          type: 'text',
+          text: "友達登録完了。"
+        }
         client.reply_message(event['replyToken'], message)
         student.save
       when Line::Bot::Event::Unfollow#友達解除
@@ -43,24 +62,7 @@ class LineBotController < ApplicationController
         s.register = false
         s.save
       when Line::Bot::Event::Message# メッセージ受信
-        message = {
-          type: 'text',
-          text: "学生番号を入力"
-        }
-        client.reply_message(event['replyToken'], message)
-
-        # Studentテーブルにあるか確認
-        if s = Student.where(student_id: event.message['text']).first
-          # 生徒の名前の確認
-          message = check_button(s.name + "さんですか？")
-          user.student_id = s.student_id
-          client.reply_message(event['replyToken'], message)
-        else # 生徒の名前を登録する
-          message = {
-          type: 'text',
-          text: "該当の学生ナンバーがありません。\nもう一度学生ナンバーを入力してください"
-          }
-          client.reply_message(event['replyToken'], message)
+        
         end
         
         user.save
@@ -80,19 +82,11 @@ class LineBotController < ApplicationController
       "template": {
         "type": "confirm",
         "actions": [
-            {
-              "type": "message",
-              "label": "はい",
-              "text": "はい"
-            },
-            {
-              "type": "message",
-              "label": "いいえ",
-              "text": "いいえ"
-            }
-            ],
-              "text": msg
-          }
+            {"type": "message", "label": "はい", "text": "はい"},
+            {"type": "message", "label": "いいえ", "text": "いいえ"}
+        ],
+        "text": msg
+      }
     }
   end
 end

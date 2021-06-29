@@ -42,6 +42,12 @@ class LineBotController < ApplicationController
         s.register = false
         s.save
       when Line::Bot::Event::Message# メッセージ受信
+        message = {
+          type: 'text',
+          text: "学生番号を入力"
+        }
+        client.reply_message(event['replyToken'], message)
+        
         # Studentテーブルにあるか確認
         if s = Student.where(student_id: event.message['text']).first
           # 生徒の名前の確認

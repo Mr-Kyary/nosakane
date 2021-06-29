@@ -49,12 +49,14 @@ class LineBotController < ApplicationController
           text: "該当の学生ナンバーがありません。\nもう一度学生ナンバーを入力してください"
           }
           client.reply_message(event['replyToken'], message)
+        end
 
         message = {
           type: 'text',
           text: "友達登録完了。"
         }
         client.reply_message(event['replyToken'], message)
+
         student.save
       when Line::Bot::Event::Unfollow#友達解除
         student.destroy
@@ -63,7 +65,6 @@ class LineBotController < ApplicationController
         s.save
       when Line::Bot::Event::Message# メッセージ受信
         
-        end
         
         user.save
       end

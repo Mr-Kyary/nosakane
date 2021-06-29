@@ -12,16 +12,18 @@ class LineBotController < ApplicationController
   def callback
     body = request.body.read
     signature = request.env['HTTP_X_LINE_SIGNATURE']
+
     unless client.validate_signature(body, signature)
       error 400 do 'Bad Request' end
     end
+
     events = client.parse_events_from(body)
 
     events.each do |event|
       # イベントのユーザーのlineIdを取得
       userId = event['source']['userId']
       # Studentテーブルにイベントのユーザーが存在しているか検索
-      student = Studnets.where(line_account_id: userId).first
+      student = Student.where(line_account_id: userId).first
 
       case event
       when Line::Bot::Event::Follow#友達追加
@@ -30,7 +32,7 @@ class LineBotController < ApplicationController
         student.flg = 1
         message = {
                 type: 'text',
-                text: "友達登録完了。" + student.line_account_id
+                text: "友達登録完了。"
               }
         client.reply_message(event['replyToken'], message)
         student.save
@@ -40,9 +42,24 @@ class LineBotController < ApplicationController
         s.register = false
         s.save
       when Line::Bot::Event::Message# メッセージ受信
-        userId = event['source']['userId']
+        # Studentテーブルにあるか確認
+        if s = Student.where(student_id: event.message['text']).first
+          # 生徒の名前の確認
+          message = check_button(s.name + "さんですか？")
+          user.student_id = s.student_id
+          user.flg = 3
+          client.reply_message(event['replyToken'], message)
+        else # 生徒の名前を登録する
+          message = {
+          type: 'text',
+          text: "該当の学生ナンバーがありません。\nもう一度学生ナンバーを入力してください"
+          }
+          client.reply_message(event['replyToken'], message)
+        end
         
+        user.save
       end
+
       client.reply_message(event['replyT oken'], message)
     end
 

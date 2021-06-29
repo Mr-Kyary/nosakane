@@ -28,6 +28,7 @@ class LineBotController < ApplicationController
       case event
       when Line::Bot::Event::Follow#友達追加
         student = Student.new
+        user = User.new
         student.line_account_id = userId
         student.flg = 1
         message = {
@@ -47,13 +48,12 @@ class LineBotController < ApplicationController
           text: "学生番号を入力"
         }
         client.reply_message(event['replyToken'], message)
-        
+
         # Studentテーブルにあるか確認
         if s = Student.where(student_id: event.message['text']).first
           # 生徒の名前の確認
           message = check_button(s.name + "さんですか？")
           user.student_id = s.student_id
-          user.flg = 3
           client.reply_message(event['replyToken'], message)
         else # 生徒の名前を登録する
           message = {

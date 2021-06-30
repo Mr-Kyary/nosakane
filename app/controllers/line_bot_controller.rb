@@ -9,6 +9,13 @@ class LineBotController < ApplicationController
     }
   end
 
+  def client
+    @client ||= Line::Bot::Client.new { |config|
+      config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
+      config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
+    }
+  end
+
   def callback
     body = request.body.read
     signature = request.env['HTTP_X_LINE_SIGNATURE']
@@ -22,57 +29,21 @@ class LineBotController < ApplicationController
     events.each do |event|
       # イベントのユーザーのlineIdを取得
       userId = event['source']['userId']
-      # Studentテーブルにイベントのユーザーが存在しているか検索
-      student = Student.where(line_account_id: userId).first
+      # Userlineテーブルにイベントのユーザーが存在しているか検索
+      user = Userline.where(line_id: userId).first
 
       case event
-      when Line::Bot::Event::Follow#友達追加
+        #友達追加
+      when Line::Bot::Event::Follow
+
         student = Student.new
-        user = User.new
-        student.line_account_id = userId
-
         message = {
-          type: 'text',
-          text: "nosakaneへようこそ\n学生番号を入力してください。"
-        }
+                type: 'text',
+                text: "友達登録ありがとうございます！\n下記URLよりユーザー登録をしてください。\nhttps://nosakane.herokuapp.com/users/sign_in"
+              }
         client.reply_message(event['replyToken'], message)
-
-        # Studentテーブルにあるか確認
-        if s = Student.where(student_id: event.message['text']).first
-          # 生徒の名前の確認
-          message = check_button(s.name + "さんですか？")
-          user.find_by(name: ).student_id = s.student_id
-          client.reply_message(event['replyToken'], message)
-        else # 生徒の名前を登録する
-          message = {
-          type: 'text',
-          text: "該当の学生ナンバーがありません。\nもう一度学生ナンバーを入力してください"
-          }
-          client.reply_message(event['replyToken'], message)
-        end
-
-        message = {
-          type: 'text',
-          text: "友達登録完了。"
-        }
-        client.reply_message(event['replyToken'], message)
-
-        student.save
-      when Line::Bot::Event::Unfollow#友達解除
-        student.destroy
-        s = Student.where(student_id: student.student_id).first
-        s.register = false
-        s.save
-      when Line::Bot::Event::Message# メッセージ受信
-        
-        
-        user.save
       end
-
-      client.reply_message(event['replyT oken'], message)
     end
-
-    head :ok
   end
 
   private

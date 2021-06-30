@@ -63,3 +63,5 @@ gem 'line-bot-api'
 gem 'google-api-client'
 
 gem 'devise'
+
+ gem 'dotenv-rails'

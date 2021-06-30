@@ -17,42 +17,54 @@ class LineBotController < ApplicationController
     unless client.validate_signature(body, signature)
       error 400 do 'Bad Request' end
     end
+
     events = client.parse_events_from(body)
 
-    events.each do |event|
-      # イベントのユーザーのlineIdを取得
-      userId = event['source']['userId']
-      # Userlineテーブルにイベントのユーザーが存在しているか検索
-      student = Student.where(line_account_id: userId).first
+    events.each { |event|
+      message = {
+        type: 'text',
+        text: "友達登録ありがとうございます！\n初めて利用する場合は学生番号を登録してください。"
+      }
+      client.reply_message(event['replyToken'], message)
 
       case event
-      when Line::Bot::Event::Follow#友達追加
-        message = {
-                type: 'text',
-                text: "1:ユーザー登録を完了してください。\n#{URL_DOMAIN}/users/sign_up\n\n\n2:ユーザー登録が完了したら、学生ナンバーを入力してください！"
-              }
-        client.reply_message(event['replyToken'], message)
-      when Line::Bot::Event::Unfollow#友達解除
-        student.line_account_id = nil
-        student.save
-      when Line::Bot::Event::Message#メッセージ受信
-        userId = event['source']['userId']# イベントのユーザーのlineIdを取得
-        student = Student.where(line_account_id: userId).first# Studentテーブルにイベントのユーザーが存在しているか検索
+      when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
-          case /[0-9]{6}/ =~ event.message['text']
-          when 0
-            student_id = event.message['text']
+          if event.message["text"].include?("1")
             message = {
               type: 'text',
               text: "学生番号を登録します。"
             }
-            student.student_id = student_id
+            client.reply_message(event['replyToken'], message)
+          elsif event.message["text"].include?("2")
+            message = {
+              type: 'text',
+              text: "就職活動を報告します。"
+            }
+            client.reply_message(event['replyToken'], message)
+          elsif event.message["text"].include?("3")
+            message = {
+              type: 'text',
+              text: "nosakaneのホームページにアクセスします。"
+            }
+            client.reply_message(event['replyToken'], message)
+          else
+            message = {
+              type: 'text',
+              text: "リッチメニューから選んでください。"
+            }
+            client.reply_message(event['replyToken'], message)
           end
+        when Line::Bot::Event::MessageType::Image
+          message = {
+            type: 'text',
+            text: "写真なんか送ってくんじゃねぇ！！"
+          }
+          client.reply_message(event['replyToken'], message)
         end
       end
-      head :ok
-    end
+    }
   end
 end
 

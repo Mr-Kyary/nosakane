@@ -55,7 +55,43 @@ class LineBotController < ApplicationController
           when 2
             message = {
               type: 'text',
-              text: "aaaa"
+              text: "活動報告をします。\n下記より報告する活動種別を選んでください。"
+            }
+            client.push_message(userId, message)
+            message = {
+              type: 'text',
+              text: "1️⃣インターンシップ\n2️⃣就活イベント\n3️⃣説明会\n4️⃣筆記試験\n5️⃣面接"
+            }
+            client.push_message(userId, message)
+            student.state = 3
+          when 3
+            ## 機能（種別を入れる）
+            message = {
+              type: 'text',
+              text: "日付を入力してください。"
+            }
+            client.push_message(userId, message)
+            student.state = 4
+          when 4
+            ## 機能（日付を入れる）
+            message = {
+              type: 'text',
+              text: "時間を入力してください。"
+            }
+            client.push_message(userId, message)
+            student.state = 5
+          when 5
+            ## 機能（時間を入れる）
+            message = {
+              type: 'text',
+              text: "詳細を入力してください。"
+            }
+            client.push_message(userId, message)
+            student.state = 6
+          when 6
+            message = {
+              type: 'text',
+              text: "以下の内容で登録します。"
             }
             client.push_message(userId, message)
           end
@@ -78,6 +114,7 @@ class LineBotController < ApplicationController
     "altText": "this is a confirm template",
     "template": {
       "type": "confirm",
+      "text": msg,
       "actions": [
           {
             "type": "message",
@@ -89,9 +126,8 @@ class LineBotController < ApplicationController
             "label": "いいえ",
             "text": "いいえ"
           }
-          ],
-            "text": msg
-        }
+      ],
+    }
   }
   end
 end

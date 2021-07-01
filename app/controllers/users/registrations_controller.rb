@@ -7,6 +7,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
   def new
     super
+    if params[:line_account_id]
+      student = Student.find_by(student_id: 202017)# deviseで入力した学生番号を入れる
+      student.line_account_id = params[:line_account_id]
+      student.save
+    end
   end
 
   # POST /resource

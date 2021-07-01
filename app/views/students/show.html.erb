@@ -4,15 +4,17 @@
   <strong>Student:</strong>
   <%= @student.student_id %>
 </p>
-
 <p>
   <strong>Name:</strong>
   <%= @student.name %>
 </p>
-
 <p>
   <strong>Line account:</strong>
   <%= @student.line_account_id %>
+</p>
+<p>
+  <strong>State:</strong>
+  <%= @student.state %>
 </p>
 
 <%= link_to 'Edit', edit_student_path(@student) %> |

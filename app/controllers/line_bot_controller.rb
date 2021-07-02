@@ -1,7 +1,7 @@
 class LineBotController < ApplicationController
   require 'line/bot'
 
-  URL_DOMAIN = "http://localhost:3000"
+  URL_DOMAIN = "http://localhost:3000".freeze
 
   # 環境変数はheroku側で管理
   def client
@@ -34,6 +34,10 @@ class LineBotController < ApplicationController
       unless student = Student.find_by(line_account_id: userId)
         student = Student.new(line_account_id: userId)
       end
+
+      if student.report_id_in_progress
+        report = Report.find(student.report_id_in_progress).id
+      end
       
       case event
       when Line::Bot::Event::Follow
@@ -54,7 +58,6 @@ class LineBotController < ApplicationController
         client.push_message(userId, message)
         student.state = 1
       when Line::Bot::Event::Unfollow
-        student.line_account_id = nil
         student.state = nil
         student.save
       when Line::Bot::Event::Message
@@ -62,10 +65,12 @@ class LineBotController < ApplicationController
         when Line::Bot::Event::MessageType::Text
           if event.message['text'].include?(">活動報告")
             student.state = 2
+						student.save
           elsif event.message['text'].include?(">活動報告の確認")
-            studen.state = 99
+            student.state = 99
+						student.save
           end
-          
+
           case student.state
           ###################################投稿機能フェーズ
           ###################仕様####################
@@ -90,40 +95,40 @@ class LineBotController < ApplicationController
             }
             client.push_message(userId, message)
             student.state = 3
-            student.save
             report = Report.new
-            #studentのreport_id_in_progress カラム←report.id
+            student.report_id_in_progress = report.id
+
+            student.save
             report.save
           when 3
             ## 機能（種別を入れる）
-            case event.message['text']
-            when 1
+            if event.message['text'].include?("あ")
               # インターンシップ
               report.report_type_id = 1
-              student.state = 5
-            when 2
+              student.state = 4
+						elsif event.message['text'].include?("い")
               # 就活イベント
               report.report_type_id = 2
-              student.state = 5
-            when 3
+              student.state = 4
+            elsif event.message['text'].include?("う")
               # 説明会
               report.report_type_id = 3
-              student.state = 5
-            when 4
+              student.state = 4
+            elsif event.message['text'].include?("え")
               # 筆記試験
               report.report_type_id = 4
-              student.state = 5
-            when 5
+              student.state = 4
+            elsif event.message['text'].include?("お")
               # 面接
               report.report_type_id = 5
-              student.state = 5
+              student.state = 4
             else
               message = {
-                type: 'text',
-                text: "番号が確認できません。"
+                type: "text",
+                text: "番号が確認できません。\nもう一度入力してください。\n1️⃣インターンシップ\n2️⃣就活イベント\n3️⃣説明会\n4️⃣筆記試験\n5️⃣面接"
               }
               client.push_message(userId, message)
-              student.state = 2
+              student.state = 3
             end
 
             student.save
@@ -153,11 +158,14 @@ class LineBotController < ApplicationController
               }
               client.push_message(userId, message)
             end
-            
             student.save
           when 5
             ## 機能（予定日を入れる）
-            report.planned_at = DateTime.new(report.planned_at.year, report.planned_at.month, event.message['text'])
+            report.planned_at = DateTime.new(
+              year: report.planned_at.year, 
+              mon: report.planned_at.month, 
+              mday: dayevent.message['text']
+            )
             report.save
 
             message = {
@@ -169,7 +177,12 @@ class LineBotController < ApplicationController
             student.save
           when 6
             ## 機能（時間を入れる）
-            report.planned_at = DateTime.new(report.planned_at.year, report.planned_at.month,  report.planned_at.day, event.message['text'])
+            report.planned_at = DateTime.new(
+              report.planned_at.year, 
+              report.planned_at.month, 
+              report.planned_at.day,
+              event.message['text']
+            )
             report.save
 
             message = {
@@ -180,6 +193,7 @@ class LineBotController < ApplicationController
             student.state = 7
             student.save
           when 7
+            report.detail = event.message['text']
             message = {
               type: 'text',
               text: "以下の内容で登録します。"
@@ -220,27 +234,27 @@ class LineBotController < ApplicationController
     }
   end
 
-  private
-  def check_button(msg)# LINEのYES/NOの確認メッセージを表示させる
-  {
-    "type": "template",
-    "altText": "this is a confirm template",
-    "template": {
-      "type": "confirm",
-      "text": msg,
-      "actions": [
-          {
-            "type": "message",
-            "label": "はい",
-            "text": "はい"
-          },
-          {
-            "type": "message",
-            "label": "いいえ",
-            "text": "いいえ"
-          }
-      ],
-    }
-  }
-  end
+  # private
+  # def check_button(msg)# LINEのYES/NOの確認メッセージを表示させる
+  # {
+  #   "type": "template",
+  #   "altText": "this is a confirm template",
+  #   "template": {
+  #     "type": "confirm",
+  #     "text": msg,
+  #     "actions": [
+  #         {
+  #           "type": "message",
+  #           "label": "はい",
+  #           "text": "はい"
+  #         },
+  #         {
+  #           "type": "message",
+  #           "label": "いいえ",
+  #           "text": "いいえ"
+  #         }
+  #     ],
+  #   }
+  # }
+  # end
 end

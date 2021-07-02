@@ -217,24 +217,4 @@ class LineBotController < ApplicationController
     }
   }
   end
-<<<<<<< HEAD
-
-  def create_report_on_line
-    message = {
-      type: 'text',
-      text: "投稿を完了しました。"
-      }
-      client.reply_message(event['replyToken'], message)
-  end
-  
-  def reply_sakane_picture
-    message = {
-      type: 'image',
-      originalContentUrl: "https://f.easyuploader.app/20210630225256_6c393373.jpg",
-      previewImageUrl:    "https://f.easyuploader.app/20210630225256_6c393373.jpg"
-    }
-    client.reply_message(event['replyToken'], message)
-  end
-=======
->>>>>>> 22d5e2b18bc559fe8c87616686996880459e3e65
 end

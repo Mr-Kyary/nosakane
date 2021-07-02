@@ -34,6 +34,10 @@ class LineBotController < ApplicationController
       unless student = Student.find_by(line_account_id: userId)
         student = Student.new(line_account_id: userId)
       end
+
+      if student.report_id_in_progress
+        report = Report.find(student.report_id_in_progress)
+      end
       
       case event
       when Line::Bot::Event::Follow
@@ -65,7 +69,9 @@ class LineBotController < ApplicationController
           elsif event.message['text'].include?(">活動報告の確認")
             studen.state = 99
           end
-          
+
+          student.save
+
           case student.state
           ###################################投稿機能フェーズ
           ###################仕様####################
@@ -90,9 +96,10 @@ class LineBotController < ApplicationController
             }
             client.push_message(userId, message)
             student.state = 3
-            student.save
             report = Report.new
-            #studentのreport_id_in_progress カラム←report.id
+            student.report_id_in_progress = report.id
+
+            student.save
             report.save
           when 3
             ## 機能（種別を入れる）
@@ -153,11 +160,14 @@ class LineBotController < ApplicationController
               }
               client.push_message(userId, message)
             end
-            
             student.save
           when 5
             ## 機能（予定日を入れる）
-            report.planned_at = DateTime.new(report.planned_at.year, report.planned_at.month, event.message['text'])
+            report.planned_at = DateTime.new(
+              year: report.planned_at.year, 
+              mon: report.planned_at.month, 
+              mday: dayevent.message['text']
+            )
             report.save
 
             message = {
@@ -169,7 +179,12 @@ class LineBotController < ApplicationController
             student.save
           when 6
             ## 機能（時間を入れる）
-            report.planned_at = DateTime.new(report.planned_at.year, report.planned_at.month,  report.planned_at.day, event.message['text'])
+            report.planned_at = DateTime.new(
+              year: report.planned_at.year, 
+              mon: report.planned_at.month, 
+              mday: report.planned_at.day,
+              event.message['text']
+            )
             report.save
 
             message = {
@@ -180,9 +195,10 @@ class LineBotController < ApplicationController
             student.state = 7
             student.save
           when 7
+            report.detail = event.message['text']
             message = {
               type: 'text',
-              text: "以下の内容で登録します。"
+              text: "以下の内容で登録します。\n種別：#{report.type}\n"
             }
             client.push_message(userId, message)
             student.state = 1

@@ -8,7 +8,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def new
     super
     if params[:line_account_id]
-      student = Student.find_by(student_id: 202017)# deviseで入力した学生番号を入れる
+      student = Student.find_by(student_id: params[:student_id])
       student.line_account_id = params[:line_account_id]
       student.save
     end

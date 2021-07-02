@@ -1,14 +1,5 @@
 Rails.application.routes.draw do
 
-  # ログイン関連(devise)
-  devise_for :users, controllers: {
-    sessions: 'users/sessions',
-    registrations: 'users/registrations'
-  }
-  devise_for :admins, controllers: {
-    sessions: 'admins/sessions'
-  }
-
   ############resources############
   resources :students
   resources :companies
@@ -26,6 +17,15 @@ Rails.application.routes.draw do
   ############post############
   post '/callback', to:'line_bot#callback'
   ############post ここまで############
+
+  # ログイン関連(devise)
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
+  devise_for :admins, controllers: {
+    sessions: 'admins/sessions'
+  }
 
   root to: 'home#top'
 end

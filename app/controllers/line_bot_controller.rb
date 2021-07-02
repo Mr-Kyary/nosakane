@@ -53,6 +53,10 @@ class LineBotController < ApplicationController
         }
         client.push_message(userId, message)
         student.state = 1
+      when Line::Bot::Event::Unfollow
+        student.line_account_id = nil
+        student.state = nil
+        student.save
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
@@ -86,6 +90,7 @@ class LineBotController < ApplicationController
             }
             client.push_message(userId, message)
             student.state = 3
+            student.save
             report = Report.new
           when 3
             ## 機能（種別を入れる）
@@ -93,18 +98,28 @@ class LineBotController < ApplicationController
             when 1
               # インターンシップ
               report.report_type_id = 1
+              student.state = 5
+              student.save
             when 2
               # 就活イベント
               report.report_type_id = 2
+              student.state = 5
+              student.save
             when 3
               # 説明会
               report.report_type_id = 3
+              student.state = 5
+              student.save
             when 4
               # 筆記試験
               report.report_type_id = 4
+              student.state = 5
+              student.save
             when 5
               # 面接
               report.report_type_id = 5
+              student.state = 5
+              student.save
             else
               message = {
                 type: 'text',
@@ -112,6 +127,7 @@ class LineBotController < ApplicationController
               }
               client.push_message(userId, message)
               student.state = 2
+              student.save
             end
 
             message = {
@@ -119,22 +135,23 @@ class LineBotController < ApplicationController
               text: "日付(月)を入力してください。"
             }
             client.push_message(userId, message)
-            report.planned_at = Datetime.new(year: Date.today.year)
-            student.state = 5
+            report.planned_at = DateTime.new(year: Date.today.year)
           when 4
             ## 機能（予定月を入れる）
             if event.message['text'].between?(1, 12)
-              report.planned_at = Datetime.new(report.planned_at.year, event.message['text'])
+              report.planned_at = DateTime.new(report.planned_at.year, event.message['text'])
             end
             message = {
+              
               type: 'text',
               text: "予定日を入力してください。"
             }
             client.push_message(userId, message)
             student.state = 6
+            student.save
           when 5
             ## 機能（予定日を入れる）
-            report.planned_at = Datetime.new(report.planned_at.year, report.planned_at.month, event.message['text'])
+            report.planned_at = DateTime.new(report.planned_at.year, report.planned_at.month, event.message['text'])
             if event.message['text'].between?(1, 12)
               report.planned_at[:month] = event.message['text']
             else
@@ -146,21 +163,25 @@ class LineBotController < ApplicationController
             }
             client.push_message(userId, message)
             student.state = 6
+            student.save
           when 6
             ## 機能（時間を入れる）
-            report.planned_at = Datetime.new(report.planned_at.year, report.planned_at.month,  report.planned_at.day, event.message['text'])
+            report.planned_at = DateTime.new(report.planned_at.year, report.planned_at.month,  report.planned_at.day, event.message['text'])
             message = {
               type: 'text',
               text: "詳細を入力してください。"
             }
             client.push_message(userId, message)
             student.state = 7
+            student.save
           when 7
             message = {
               type: 'text',
               text: "以下の内容で登録します。"
             }
             client.push_message(userId, message)
+            student.state = 1
+            student.save
             report.save
           ###################################投稿機能フェーズ ここまで
           when 99

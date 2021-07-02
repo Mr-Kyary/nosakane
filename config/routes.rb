@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  root to: 'home#top'
-
-  get 'calendar/index', to: 'calendar#index'
 
   # ログイン関連(devise)
   devise_for :users, controllers: {
@@ -23,9 +20,12 @@ Rails.application.routes.draw do
   get 'home/students'
   get 'home/reports'
   get 'home/companies'
+  get 'calendar/index', to: 'calendar#index'
   ############get ここまで############
 
   ############post############
   post '/callback', to:'line_bot#callback'
   ############post ここまで############
+
+  root to: 'home#top'
 end

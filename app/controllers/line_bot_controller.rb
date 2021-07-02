@@ -59,6 +59,7 @@ class LineBotController < ApplicationController
         student.state = 1
       when Line::Bot::Event::Unfollow
         student.state = nil
+				student.report_id_in_progress = nil
         student.save
       when Line::Bot::Event::Message
         case event.type

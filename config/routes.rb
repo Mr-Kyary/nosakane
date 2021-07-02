@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   ############resources ここまで############
 
   ############get############
+  get 'user/index', to: 'users#index'
   get 'home/students'
   get 'home/reports'
   get 'home/companies'

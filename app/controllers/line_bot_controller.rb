@@ -34,10 +34,11 @@ class LineBotController < ApplicationController
       
       # studentテーブルにLINEアカウントIDが存在しない場合→studentデータとLINEアカウントの紐づけがない=新規登録段階
       unless student = Student.find_by(line_account_id: userId)
-        # 仮のstudenデータを作成する
+        # 仮のstudentデータを作成する
         student = Student.new(line_account_id: userId)
       end
-      # 作成途中の投稿がある場合、作成途中の投稿
+
+      #  投稿機能フェーズの途中の場合、作成途中の投稿
       if student.report_id_in_progress
         report = Report.find(student.report_id_in_progress)
       end
@@ -61,6 +62,7 @@ class LineBotController < ApplicationController
         client.push_message(userId, message)
         student.state = 1
       when Line::Bot::Event::Unfollow
+        # studentsの不完全なデータがあれば、全部削除
         student.state = nil
 				student.report_id_in_progress = nil
         student.save
@@ -100,16 +102,15 @@ class LineBotController < ApplicationController
             client.push_message(userId, message)
             student.state = 3
             report = Report.new(report_detail: "#{student.name} in progress of creatig a report.")
-            student.report_id_in_progress = report.id.to_i# エラー：０が入る
-            p "れぽーーーーーーーーーーーーーーーーーーと", report
+            report.save
+            p report
+            student.update(report_id_in_progress: report.id)# エラー：０が入る
 
             student.save
-            report.save
           when 3
             ## 機能（種別を入れる）
             if event.message['text'].include?("あ")
               # インターンシップ
-
               report.report_type_id = 1
               student.state = 4
 						elsif event.message['text'].include?("い")
@@ -145,11 +146,12 @@ class LineBotController < ApplicationController
               text: "日付(月)を入力してください。"
             }
             client.push_message(userId, message)
-            report.planned_at = DateTime.new(year: Date.today.year)
+            report.planned_at = Time.local(Date.today.year)
+            report.save
           when 4
             ## 機能（予定月を入れる）
-            if event.message['text'].between?(1, 12)
-              report.planned_at = DateTime.new(report.planned_at.year, event.message['text'])
+            if event.message['text'].to_i.between?(1, 12)
+              report.planned_at = Time.local(report.planned_at.year, event.message['text'].to_i, 1)
               message = {
                 type: 'text',
                 text: "予定日を入力してください。"
@@ -158,7 +160,7 @@ class LineBotController < ApplicationController
               report.save
               student.state = 5
             else
-              essage = {
+              message = {
                 type: 'text',
                 text: "月は1~12の整数で入力してください。"
               }

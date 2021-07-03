@@ -29,14 +29,17 @@ class LineBotController < ApplicationController
       # 3: 投稿フェーズの段階
       # 4: 
       ###################################
+      # LINEアカウントIDを取得
       userId = event['source']['userId']
       
+      # studentテーブルにLINEアカウントIDが存在しない場合→studentデータとLINEアカウントの紐づけがない=新規登録段階
       unless student = Student.find_by(line_account_id: userId)
+        # 仮のstudenデータを作成する
         student = Student.new(line_account_id: userId)
       end
-
+      # 作成途中の投稿がある場合、作成途中の投稿
       if student.report_id_in_progress
-        report = Report.find(student.report_id_in_progress).id
+        report = Report.find(student.report_id_in_progress)
       end
       
       case event
@@ -96,8 +99,9 @@ class LineBotController < ApplicationController
             }
             client.push_message(userId, message)
             student.state = 3
-            report = Report.new
+            report = Report.new(report_detail: "#{student.name} in progress of creatig a report.")
             student.report_id_in_progress = report.id
+            p "れぽーーーーーーーーーーーーーーーーーーと", report
 
             student.save
             report.save
@@ -105,6 +109,7 @@ class LineBotController < ApplicationController
             ## 機能（種別を入れる）
             if event.message['text'].include?("あ")
               # インターンシップ
+
               report.report_type_id = 1
               student.state = 4
 						elsif event.message['text'].include?("い")

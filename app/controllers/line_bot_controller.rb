@@ -100,7 +100,7 @@ class LineBotController < ApplicationController
             client.push_message(userId, message)
             student.state = 3
             report = Report.new(report_detail: "#{student.name} in progress of creatig a report.")
-            student.report_id_in_progress = report.id
+            student.report_id_in_progress = report.id.to_i# エラー：０が入る
             p "れぽーーーーーーーーーーーーーーーーーーと", report
 
             student.save

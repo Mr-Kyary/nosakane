@@ -101,10 +101,15 @@ class LineBotController < ApplicationController
             }
             client.push_message(userId, message)
             student.state = 3
-            report = Report.new(report_detail: "#{student.name} in progress of creatig a report.")
+
+            user = User.find_by(student_id: student.student_id)
+            report = Report.new(
+              user_id: user.id,
+              report_detail: "#{student.name} in progress of creatig a report."
+            )
             report.save
-            p report
-            student.update(report_id_in_progress: report.id)# エラー：０が入る
+
+            student.update(report_id_in_progress: report.id)
 
             student.save
           when 3
@@ -143,68 +148,63 @@ class LineBotController < ApplicationController
 
             message = {
               type: 'text',
-              text: "日付(月)を入力してください。"
+              text: "日付を選択してください。(日付は送れない)"
             }
             client.push_message(userId, message)
-            report.planned_at = Time.local(Date.today.year)
-            report.save
-          when 4
-            ## 機能（予定月を入れる）
-            if event.message['text'].to_i.between?(1, 12)
-              report.planned_at = Time.local(report.planned_at.year, event.message['text'].to_i, 1)
-              message = {
-                type: 'text',
-                text: "予定日を入力してください。"
+
+            message = {
+              "type": "template",
+              "altText": "datetime_picker",
+              "template": {
+                "type": "buttons",
+                "thumbnailImageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a6/Pok%C3%A9mon_Pikachu_art.png/220px-Pok%C3%A9mon_Pikachu_art.png", 
+                "imageAspectRatio": "rectangle", 
+                "imageSize": "cover", 
+                "imageBackgroundColor": "#FFFFFF", 
+                "title": "メニュー",
+                "text": "以下より選択してください。",
+                "defaultAction": {
+                  "type": "uri",
+                  "label": "View detail",
+                  "uri": "https://arukayies.com/"
+                },
+                "actions": [
+                  {
+                    "type": "datetimepicker",
+                    "label": "日時を選択してください。",
+                    "data": "action=settime",
+                    "mode": "datetime",
+                    "initial": "2020-12-25t00:00",
+                    "max": "2030-01-01t00:00",
+                    "min": "2020-01-01t00:00"
+                  }
+                ]
               }
-              client.push_message(userId, message)
+            }
+            client.push_message(userId, message)
+          when 4
+            # if report.planned_at = DateTime.parse(event.postback.param.datetime)
+              # report.planned_at = DateTime.parse(event.postback.param.datetime)
               report.save
               student.state = 5
-            else
+              student.save
               message = {
                 type: 'text',
-                text: "月は1~12の整数で入力してください。"
+                text: "詳細を入力してください。"
               }
               client.push_message(userId, message)
-            end
-            student.save
+            # else
+            #   message = {
+            #     type: 'text',
+            #     text: "日付を確認できません。"
+            #   }
+            #   client.push_message(userId, message)
+            # end
           when 5
-            ## 機能（予定日を入れる）
-            report.planned_at = DateTime.new(
-              year: report.planned_at.year, 
-              mon: report.planned_at.month, 
-              mday: dayevent.message['text']
-            )
-            report.save
-
+            report.report_detail = event.message['text']
             message = {
               type: 'text',
-              text: "時間を入力してください。"
-            }
-            client.push_message(userId, message)
-            student.state = 6
-            student.save
-          when 6
-            ## 機能（時間を入れる）
-            report.planned_at = DateTime.new(
-              report.planned_at.year, 
-              report.planned_at.month, 
-              report.planned_at.day,
-              event.message['text']
-            )
-            report.save
-
-            message = {
-              type: 'text',
-              text: "詳細を入力してください。"
-            }
-            client.push_message(userId, message)
-            student.state = 7
-            student.save
-          when 7
-            report.detail = event.message['text']
-            message = {
-              type: 'text',
-              text: "以下の内容で登録します。"
+              text: "登録しました。"
             }
             client.push_message(userId, message)
             student.state = 1

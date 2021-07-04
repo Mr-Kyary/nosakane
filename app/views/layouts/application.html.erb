@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Nosakane</title>
+    <title>noSakane</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -9,80 +9,151 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet">
   </head>
 
   <body class="container">
     <header>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <h1><%= link_to("nosakane", "/", class: "navbar-brand") %></h1>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <%= link_to("students", "/students", class: "nav-link") %>
-            </li>
-            <li class="nav-item active">
-              <%= link_to("companies", "/companies", class: "nav-link") %>
-            </li>
-            <li class="nav-item active">
-              <%= link_to("reports", "/reports", class: "nav-link") %>
-            </li>
-            <li class="nav-item active">
-              <%= link_to("report types", "/report_types", class: "nav-link") %>
-            </li>
-          </ul>
-        </div>
-      </nav>
-      <nav>
-        <ul>
-          <% if admin_signed_in? %>
-            <li><strong>管理者としてログイン中</strong></li>
-            <li>
-            <li>
-              <%= link_to "管理者ログアウト", destroy_admin_session_path, method: :delete %>
-            </li>
-          <% else %>
-            <li>管理者としてログインしていません</li>
-          <% end %>
-          <li>
-            <%= link_to "管理者ログイン", new_admin_session_path %>
-          </li>
-        </ul>
 
-        <ul>
-          <% if user_signed_in? %>
-            <li><strong>ユーザーとしてログイン中</strong></li>
-            <li>
-              <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+      <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top d-flex align-items-center">
+      <div class="container d-flex align-items-center justify-content-between">
+
+        <div class="logo">
+          <h1 class="text-light"><%= link_to("noSakane", "/", class: "navbar-brand") %></h1>
+          <!-- Uncomment below if you prefer to use an image logo -->
+          <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+        </div>
+
+        <nav id="navbar" class="navbar">
+          <ul>
+            <li><%= link_to("About nosakane?", "#", class: "nav-link scrollto") %></li>
+            <% if admin_signed_in? %>
+              <li><%= link_to("学生一覧", "/students", class: "nav-link scrollto") %></li>
+              <li><%= link_to("投稿一覧", "/reports", class: "nav-link scrollto") %></li>
+              <li><%= link_to("投稿種別一覧", "/report_types", class: "nav-link scrollto") %></li>
+              <li><%= link_to("会社一覧", "/companies", class: "nav-link scrollto") %></li>
+            <% end %>
+            <!--
+            <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+              <ul>
+                <li><a href="#">Drop Down 1</a></li>
+                <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                  <ul>
+                    <li><a href="#">Deep Drop Down 1</a></li>
+                    <li><a href="#">Deep Drop Down 2</a></li>
+                    <li><a href="#">Deep Drop Down 3</a></li>
+                    <li><a href="#">Deep Drop Down 4</a></li>
+                    <li><a href="#">Deep Drop Down 5</a></li>
+                  </ul>
+                </li>
+                <li><a href="#">Drop Down 2</a></li>
+                <li><a href="#">Drop Down 3</a></li>
+                <li><a href="#">Drop Down 4</a></li>
+              </ul>
             </li>
-          <% else %>
-            <li>ユーザーとしてログインしていません</li>
-          <% end %>
-          <li>
-            <%= link_to "ユーザーログイン", new_user_session_path %>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    <%= yield %>
-    <footer>
-      <div class="alert alert-primary" role="alert">
-        <% if user_signed_in? %>
-          <table border="1" class="table table-bordered border-primary">
-            <tr>
-              <th>ユーザーID</th>
-              <th>ユーザーメールアドレス</th>
-              <th>学生番号</th>
-            </tr>
-            <tr>
-              <td><%= current_user.id %></td>
-              <td><%= current_user.email %></td>
-              <td><%= current_user.student_id %></td>
-            </tr>
-          </table>
-        <% end %>
+            -->
+            <li><a class="getstarted scrollto" href="/users/sign_up">新規登録</a></li>
+          </ul>
+          <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
       </div>
-    </footer>
+    </header><!-- End Header -->
+
+    <%= yield %>
+      <!-- ======= Footer ======= -->
+    <footer id="footer">
+
+      <div class="footer-newsletter">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-6">
+              <h4>新規登録</h4>
+              <p>さあ、登録を完了して坂根先生の居場所をなくそう。</p>
+              <form action="" method="post">
+                <input type="email" name="email" placeholder="メールアドレス"><input type="submit" value="Subscribe">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-top">
+        <div class="container">
+          <div class="row">
+
+            <div class="col-lg-3 col-md-6 footer-contact">
+              <h3>nosakane</h3>
+              <p>
+
+                Vincity Street, Tenjin <br>
+                Izumo, Shimane 6930005<br>
+                Japan <br><br>
+                <strong>Phone:</strong> +81 0853 72 2500<br>
+                <strong>Email:</strong> sakane@icc.core.ac.jp<br>
+              </p>
+            </div>
+
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Useful Links</h4>
+              <ul>
+                <li><i class="bx bx-chevron-right"></i><%= link_to("出雲コアカレッジ", "https://www.icc.core.ac.jp/") %></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">About nosakane?</a></li>
+              </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Developed by</h4>
+              <ul>
+                <li><i class="bx bx-chevron-right"></i> <%= link_to("Karino", "https://github.com/Mr-Kyary") %></li>
+                <li><i class="bx bx-chevron-right"></i> <%= link_to("Mishima", "https://github.com/MishimaKaiser") %></li>
+                <li><i class="bx bx-chevron-right"></i> <%= link_to("Makihara", "https://github.com/maki807") %></li>
+                <li><i class="bx bx-chevron-right"></i> <%= link_to("Hara", "https://github.com/hidetoshi-hara") %></li>
+              </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Our thoughts</h4>
+              <p>"How log do you estimate if you develop system for sharing job-hunting activities with students?" said Sakane Sensei. </br>That is the begining of this project.</br>Hide-chan happed to overhear that conversations.</br><strong>"Winter is coming."</strong> said Hide-chan</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="container py-4">
+        <div class="copyright">
+          &copy; Copyright <strong><span>nosakane</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+          <!-- All the links in the footer should remain intact. -->
+          <!-- You can delete the links only if you purchased the pro version. -->
+          <!-- Licensing information: https://bootstrapmade.com/license/ -->
+          <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/ninestars-free-bootstrap-3-theme-for-creative/ -->
+          <%= link_to("Sign up as Administor", "/admin/sign_in", class: "nav-link scrollto") %>
+          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+      </div>
+    </footer><!-- End Footer -->
   </body>
 </html>

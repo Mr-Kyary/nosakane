@@ -1,24 +1,19 @@
-<h1>ホーム</h1>
+<section id="hero" class="d-flex align-items-center">
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>index</th>
-      <th>new</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row"><%= link_to("学生一覧", "/students") %></th>
-      <td><%= link_to("新規作成フォーム", "/students/new") %></td>
-    </tr>
-    <tr>
-      <th scope="row"><%= link_to("会社情報", "/companies") %></th>
-      <td><%= link_to("新規作成フォーム", "/companies/new") %></td>
-    </tr>
-    <tr>
-      <th scope="row"><%= link_to("レポート", "/reports") %></th>
-      <td><%= link_to("新規作成フォーム", "/reports/new") %></td>
-    </tr>
-  </tbody>
-</table>
+  <div class="container">
+    <div class="row gy-4">
+      <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
+        <h1>noSakane is better than Sakane.</h1>
+        <h2>sudo rm sakane</h2>
+        <div>
+          <a href="#about" class="btn-get-started scrollto">Get Started</a>
+        </div>
+      </div>
+      <div class="col-lg-6 order-1 order-lg-2 hero-img">
+        <img src="assets/img/hero-img.svg" class="img-fluid animated" alt="">
+      </div>
+    </div>
+  </div>
+</section><!-- End Hero -->
+<section>
+</section>

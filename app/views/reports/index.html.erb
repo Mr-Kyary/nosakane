@@ -2,9 +2,10 @@
 
 <h1>Reports</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
+      <th>Id</th>
       <th>User</th>
       <th>Report type</th>
       <th>Planned at</th>
@@ -16,6 +17,7 @@
   <tbody>
     <% @reports.each do |report| %>
       <tr>
+        <td><%= report.id %></td>
         <td><%= report.user_id %></td>
         <td><%= report.report_type_id %></td>
         <td><%= report.planned_at %></td>

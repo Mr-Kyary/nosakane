@@ -17,7 +17,7 @@
     <header>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <h1><%= link_to("nosakane", "/", class: "navbar-brand") %></h1>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div>
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
               <%= link_to("students", "/students", class: "nav-link") %>
@@ -31,10 +31,12 @@
             <li class="nav-item active">
               <%= link_to("report types", "/report_types", class: "nav-link") %>
             </li>
+            <li class="nav-item active">
+              <%= link_to("users", "/user/index", class: "nav-link") %>
+            </li>
           </ul>
         </div>
       </nav>
-      <nav>
         <ul>
           <% if admin_signed_in? %>
             <li><strong>管理者としてログイン中</strong></li>
@@ -67,22 +69,24 @@
     </header>
     <%= yield %>
     <footer>
-      <div class="alert alert-primary" role="alert">
-        <% if user_signed_in? %>
+      <% if user_signed_in? %>
+        <div class="alert alert-primary" role="alert">
           <table border="1" class="table table-bordered border-primary">
             <tr>
               <th>ユーザーID</th>
               <th>ユーザーメールアドレス</th>
               <th>学生番号</th>
+              <th>名前</th>
             </tr>
             <tr>
               <td><%= current_user.id %></td>
               <td><%= current_user.email %></td>
               <td><%= current_user.student_id %></td>
+              <td><%= Student.find_by(student_id: current_user.student_id).name %></td>
             </tr>
           </table>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </footer>
   </body>
 </html>

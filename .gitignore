@@ -40,6 +40,7 @@ yarn-debug.log*
 .yarn-integrity
 
 Gemfile.lock
+.env
 
 # Webpacker関連
 package-lock.json

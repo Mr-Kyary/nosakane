@@ -13,10 +13,12 @@ Rails.application.routes.draw do
   get 'home/reports'
   get 'home/companies'
   get 'calendar/index', to: 'calendar#index'
+  get '/about', to:'home#about'
   ############get ここまで############
 
   ############post############
   post '/callback', to:'line_bot#callback'
+  post 'users/sign_up'
   ############post ここまで############
 
   # ログイン関連(devise)

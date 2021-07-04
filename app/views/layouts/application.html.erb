@@ -45,7 +45,7 @@
 
         <nav id="navbar" class="navbar">
           <ul>
-            <li><%= link_to("About nosakane?", "#", class: "nav-link scrollto") %></li>
+            <li><a class="nav-link scrollto" href="#">About nosakane?</a></li>
             <% if admin_signed_in? %>
               <li><%= link_to("学生一覧", "/students", class: "nav-link scrollto") %></li>
               <li><%= link_to("投稿一覧", "/reports", class: "nav-link scrollto") %></li>
@@ -82,20 +82,6 @@
     <%= yield %>
       <!-- ======= Footer ======= -->
     <footer id="footer">
-
-      <div class="footer-newsletter">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-6">
-              <h4>新規登録</h4>
-              <p>さあ、登録を完了して坂根先生の居場所をなくそう。</p>
-              <form action="" method="post">
-                <input type="email" name="email" placeholder="メールアドレス"><input type="submit" value="Subscribe">
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <div class="footer-top">
         <div class="container">

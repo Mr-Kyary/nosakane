@@ -39,8 +39,6 @@
 
         <div class="logo">
           <h1 class="text-light"><%= link_to("noSakane", "/", class: "navbar-brand") %></h1>
-          <!-- Uncomment below if you prefer to use an image logo -->
-          <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
         </div>
 
         <nav id="navbar" class="navbar">
@@ -52,80 +50,53 @@
               <li><%= link_to("投稿種別一覧", "/report_types", class: "nav-link scrollto") %></li>
               <li><%= link_to("会社一覧", "/companies", class: "nav-link scrollto") %></li>
             <% end %>
-            <!--
-            <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
-              <ul>
-                <li><a href="#">Drop Down 1</a></li>
-                <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                  <ul>
-                    <li><a href="#">Deep Drop Down 1</a></li>
-                    <li><a href="#">Deep Drop Down 2</a></li>
-                    <li><a href="#">Deep Drop Down 3</a></li>
-                    <li><a href="#">Deep Drop Down 4</a></li>
-                    <li><a href="#">Deep Drop Down 5</a></li>
-                  </ul>
-                </li>
-                <li><a href="#">Drop Down 2</a></li>
-                <li><a href="#">Drop Down 3</a></li>
-                <li><a href="#">Drop Down 4</a></li>
-              </ul>
-
-            </li>
-            -->
             <li><a class="getstarted scrollto" href="/users/sign_up">新規登録</a></li>
           </ul>
           <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav><!-- .navbar -->
+        </nav>
       </div>
-    </header><!-- End Header -->
-
+    </header>
     <%= yield %>
       <!-- ======= Footer ======= -->
     <footer id="footer">
-
       <div class="footer-top">
         <div class="container">
-          <div class="row">
-
-            <div class="col-lg-3 col-md-6 footer-contact">
-              <h3>nosakane</h3>
-              <p>
-
-                Vincity Street, Tenjin <br>
-                Izumo, Shimane 6930005<br>
-                Japan <br><br>
-                <strong>Phone:</strong> +81 0853 72 2500<br>
-                <strong>Email:</strong> sakane@icc.core.ac.jp<br>
-              </p>
-            </div>
-
-            <div class="col-lg-3 col-md-6 footer-links">
-              <h4>Useful Links</h4>
-              <ul>
-                <li><i class="bx bx-chevron-right"></i><%= link_to("出雲コアカレッジ", "https://www.icc.core.ac.jp/") %></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="#">About nosakane?</a></li>
-              </ul>
-            </div>
-
-            <div class="col-lg-3 col-md-6 footer-links">
-              <h4>Developed by</h4>
-              <ul>
-                <li><i class="bx bx-chevron-right"></i> <%= link_to("Karino", "https://github.com/Mr-Kyary") %></li>
-                <li><i class="bx bx-chevron-right"></i> <%= link_to("Mishima", "https://github.com/MishimaKaiser") %></li>
-                <li><i class="bx bx-chevron-right"></i> <%= link_to("Makihara", "https://github.com/maki807") %></li>
-                <li><i class="bx bx-chevron-right"></i> <%= link_to("Hara", "https://github.com/hidetoshi-hara") %></li>
-              </ul>
-            </div>
-
-            <div class="col-lg-3 col-md-6 footer-links">
-              <h4>Our thoughts</h4>
-              <p>"How log do you estimate if you develop system for sharing job-hunting activities with students?" said Sakane Sensei. </br>That is the begining of this project.</br>Hide-chan happed to overhear that conversations.</br><strong>"Winter is coming."</strong> said Hide-chan</p>
-              </div>
-            </div>
-
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3>nosakane</h3>
+            <p>
+              Vincity Street, Tenjin <br>
+              Izumo, Shimane 6930005<br>
+              Japan <br><br>
+              <strong>Phone:</strong> +81 0853 72 2500<br>
+              <strong>Email:</strong> sakane@icc.core.ac.jp<br>
+            </p>
           </div>
-        </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i><%= link_to("出雲コアカレッジ", "https://www.icc.core.ac.jp/") %></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">About nosakane?</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Developed by</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <%= link_to("Karino", "https://github.com/Mr-Kyary") %></li>
+              <li><i class="bx bx-chevron-right"></i> <%= link_to("Mishima", "https://github.com/MishimaKaiser") %></li>
+              <li><i class="bx bx-chevron-right"></i> <%= link_to("Makihara", "https://github.com/maki807") %></li>
+              <li><i class="bx bx-chevron-right"></i> <%= link_to("Hara", "https://github.com/hidetoshi-hara") %></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our thoughts</h4>
+            <p>"How log do you estimate if you develop system for sharing job-hunting activities with students?" said Sakane Sensei. </br>That is the begining of this project.</br>Hide-chan happed to overhear that conversations.</br><strong>"Winter is coming."</strong> said Hide-chan</p>
+          </div>
       </div>
+
+
 
       <div class="container py-4">
         <div class="copyright">

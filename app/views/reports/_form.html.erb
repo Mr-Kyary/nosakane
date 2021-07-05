@@ -1,35 +1,43 @@
-<div>
-  <%= form_with(model: report) do |form| %>
-    <% if report.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(report.errors.count, "error") %> prohibited this report from being saved:</h2>
+<section id="hero" class="d-flex align-items-center">
+  <div class="container">
+    <%= form_with(model: report) do |form| %>
+      <% if report.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(report.errors.count, "error") %> prohibited this report from being saved:</h2>
 
-        <ul>
-          <% report.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
+          <ul>
+            <% report.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= form.label :report_type_id, "投稿種別：" %>
+        <%= form.collection_select :report_type_id, ReportType.all, :id, :report_type_name %>
+      </div>
+
+      <div class="field">
+        <%= form.label :planned_at, "日付：" %>
+        <%= raw sprintf(
+          form.datetime_select(
+            :planned_at,
+            minute_step: 5,
+            use_month_numbers: true,
+            date_separator:'%s'
+          ),'年', '月', '日', '時') + '分' %>
+      </div>
+
+      <div class="field">
+        <%= form.label :report_detail, "レポート詳細：" %>
+        <%= form.text_area :report_detail %>
+      </div>
+
+
+      <div class="actions">
+        <%= form.submit "投稿" %>
       </div>
     <% end %>
-
-    <div class="field">
-      <%= form.label :投稿種別 %>
-      <%= form.collection_select :report_type_id, ReportType.all, :id, :report_type_name %>
-    </div>
-
-    <div class="field">
-      <%= form.label :日付 %>
-      <%= form.datetime_select :planned_at, :minute step => 5, :use_month_numbers => true%>
-    </div>
-
-    <div class="field">
-      <%= form.label :レポート詳細 %>
-      <%= form.text_area :report_detail %>
-    </div>
-
-
-    <div class="actions">
-      <%= form.submit "投稿" %>
-    </div>
-  <% end %>
-</div>
+  </div>
+</section>

@@ -22,7 +22,7 @@ class ReportsController < ApplicationController
   # POST /reports or /reports.json
   def create
     @report = Report.new(report_params)
-    @report.student_id = Student.find_by()
+    @report.user_id = current_user.id
 
     respond_to do |format|
       if @report.save
@@ -65,6 +65,6 @@ class ReportsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def report_params
-      params.require(:report).permit(:report_id, :student_id, :report_type_id, :planed_date, :company_id, :report_detail)
+      params.require(:report).permit(:user_id, :report_type_id, :planned_at, :report_detail)
     end
 end

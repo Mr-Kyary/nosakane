@@ -64,7 +64,4 @@ gem 'google-api-client'
 
 gem 'devise'
 
-
-
-
-
+ gem 'dotenv-rails'

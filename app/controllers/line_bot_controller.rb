@@ -183,8 +183,8 @@ class LineBotController < ApplicationController
             }
             client.push_message(userId, message)
           when 4
-            # if report.planned_at = DateTime.parse(event.postback.param.datetime)
-              # report.planned_at = DateTime.parse(event.postback.param.datetime)
+            if report.planned_at = DateTime.parse(event.postback.param.datetime)
+              report.planned_at = DateTime.parse(event.postback.param.datetime)
               report.save
               student.state = 5
               student.save
@@ -193,13 +193,13 @@ class LineBotController < ApplicationController
                 text: "詳細を入力してください。"
               }
               client.push_message(userId, message)
-            # else
-            #   message = {
-            #     type: 'text',
-            #     text: "日付を確認できません。"
-            #   }
-            #   client.push_message(userId, message)
-            # end
+            else
+              message = {
+                type: 'text',
+                text: "日付を確認できません。"
+              }
+              client.push_message(userId, message)
+            end
           when 5
             report.report_detail = event.message['text']
             message = {

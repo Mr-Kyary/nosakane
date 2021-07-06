@@ -19,8 +19,8 @@ class LineBotController < ApplicationController
     end
 
     events = client.parse_events_from(body)
-
     events.each { |event|
+      p event#デバッグ用
       ###################################
       # stateカラムは整数値
       # 0: 初期値
@@ -31,7 +31,7 @@ class LineBotController < ApplicationController
       ###################################
       # LINEアカウントIDを取得
       userId = event['source']['userId']
-      
+
       # studentテーブルにLINEアカウントIDが存在しない場合→studentデータとLINEアカウントの紐づけがない=新規登録段階
       unless student = Student.find_by(line_account_id: userId)
         # 仮のstudentデータを作成する
@@ -78,17 +78,6 @@ class LineBotController < ApplicationController
           end
 
           case student.state
-          ###################################投稿機能フェーズ
-          ###################仕様####################
-          # student.stateが2~8まで間は投稿機能フェーズとする
-          # 2 
-          # 3 
-          # 4 
-          # 5 
-          # 6 
-          # 7 
-          # 8 
-          ###############仕様ここまで################
           when 2
             message = {
               type: 'text',
@@ -184,7 +173,6 @@ class LineBotController < ApplicationController
             client.push_message(userId, message)
           when 4
             if report.planned_at = DateTime.parse(event.postback.param.datetime)
-              report.planned_at = DateTime.parse(event.postback.param.datetime)
               report.save
               student.state = 5
               student.save
@@ -237,6 +225,8 @@ class LineBotController < ApplicationController
             text: "坂根スタンプ、LINEスタンプストアで好評発売中！"
           }
           client.push_message(userId, message)
+        when Line::Bot::Event::Postback
+          if student.state == 4
         end
       end
     }

@@ -19,8 +19,8 @@ class LineBotController < ApplicationController
     end
 
     events = client.parse_events_from(body)
-
     events.each { |event|
+      p event#デバッグ用
       ###################################
       # stateカラムは整数値
       # 0: 初期値
@@ -31,7 +31,7 @@ class LineBotController < ApplicationController
       ###################################
       # LINEアカウントIDを取得
       userId = event['source']['userId']
-      
+
       # studentテーブルにLINEアカウントIDが存在しない場合→studentデータとLINEアカウントの紐づけがない=新規登録段階
       unless student = Student.find_by(line_account_id: userId)
         # 仮のstudentデータを作成する
@@ -44,6 +44,24 @@ class LineBotController < ApplicationController
       end
       
       case event
+      when Line::Bot::Event::Postback
+        p event
+        if report.planned_at = event["postback"]["params"]["datetime"]
+          report.save
+          student.state = 4
+          student.save
+          message = {
+            type: 'text',
+            text: "詳細を入力してください。"
+          }
+          client.push_message(userId, message)
+        else
+          message = {
+            type: 'text',
+            text: "日付を確認できません。"
+          }
+          client.push_message(userId, message)
+        end
       when Line::Bot::Event::Follow
         message = {
           type: 'text',
@@ -78,17 +96,6 @@ class LineBotController < ApplicationController
           end
 
           case student.state
-          ###################################投稿機能フェーズ
-          ###################仕様####################
-          # student.stateが2~8まで間は投稿機能フェーズとする
-          # 2 
-          # 3 
-          # 4 
-          # 5 
-          # 6 
-          # 7 
-          # 8 
-          ###############仕様ここまで################
           when 2
             message = {
               type: 'text',
@@ -117,30 +124,24 @@ class LineBotController < ApplicationController
             if event.message['text'].include?("あ")
               # インターンシップ
               report.report_type_id = 1
-              student.state = 4
 						elsif event.message['text'].include?("い")
               # 就活イベント
               report.report_type_id = 2
-              student.state = 4
             elsif event.message['text'].include?("う")
               # 説明会
               report.report_type_id = 3
-              student.state = 4
             elsif event.message['text'].include?("え")
               # 筆記試験
               report.report_type_id = 4
-              student.state = 4
             elsif event.message['text'].include?("お")
               # 面接
               report.report_type_id = 5
-              student.state = 4
             else
               message = {
                 type: "text",
                 text: "番号が確認できません。\nもう一度入力してください。\n1️⃣インターンシップ\n2️⃣就活イベント\n3️⃣説明会\n4️⃣筆記試験\n5️⃣面接"
               }
               client.push_message(userId, message)
-              student.state = 3
             end
 
             student.save
@@ -182,25 +183,8 @@ class LineBotController < ApplicationController
               }
             }
             client.push_message(userId, message)
+
           when 4
-            # if report.planned_at = DateTime.parse(event.postback.param.datetime)
-              # report.planned_at = DateTime.parse(event.postback.param.datetime)
-              report.save
-              student.state = 5
-              student.save
-              message = {
-                type: 'text',
-                text: "詳細を入力してください。"
-              }
-              client.push_message(userId, message)
-            # else
-            #   message = {
-            #     type: 'text',
-            #     text: "日付を確認できません。"
-            #   }
-            #   client.push_message(userId, message)
-            # end
-          when 5
             report.report_detail = event.message['text']
             message = {
               type: 'text',
@@ -241,28 +225,4 @@ class LineBotController < ApplicationController
       end
     }
   end
-
-  # private
-  # def check_button(msg)# LINEのYES/NOの確認メッセージを表示させる
-  # {
-  #   "type": "template",
-  #   "altText": "this is a confirm template",
-  #   "template": {
-  #     "type": "confirm",
-  #     "text": msg,
-  #     "actions": [
-  #         {
-  #           "type": "message",
-  #           "label": "はい",
-  #           "text": "はい"
-  #         },
-  #         {
-  #           "type": "message",
-  #           "label": "いいえ",
-  #           "text": "いいえ"
-  #         }
-  #     ],
-  #   }
-  # }
-  # end
 end

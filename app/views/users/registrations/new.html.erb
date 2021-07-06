@@ -44,6 +44,7 @@
               <%= f.submit "アカウント作成", class: "btn btn-orang" %>
             </div>
           </div>
+          <%= hidden_field_tag :line_account_id, params[:line_account_id] %>
         <% end %>
         <%= render "users/shared/links" %>
       </div>

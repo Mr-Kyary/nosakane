@@ -3,16 +3,12 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-import Rails from "@rails/ujs"
-import Turbolinks from "turbolinks"
-import * as ActiveStorage from "@rails/activestorage"
+
 import "channels"
 
 import '../stylesheets/application';
 
-Rails.start()
-Turbolinks.start()
-ActiveStorage.start()
+
 
 /**
 * Template Name: Ninestars - v4.3.0
@@ -179,15 +175,18 @@ ActiveStorage.start()
           });
           portfolioIsotope.on('arrangeComplete', function() {
             AOS.refresh()
-          });
-        }, true);
+          })
+        }, tr);
       }
   
     });
   
-    /**
-     * Initiate portfolio lightbox 
+    /*
+     * 
+     * Initiate 
+     * /*portfolio lightbox 
      */
+    /*
     const portfolioLightbox = GLightbox({
       selector: '.portfolio-lightbox'
     });
@@ -195,6 +194,7 @@ ActiveStorage.start()
     /**
      * Portfolio details slider
      */
+    /*
     new Swiper('.portfolio-details-slider', {
       speed: 400,
       loop: true,
@@ -212,6 +212,7 @@ ActiveStorage.start()
     /**
      * Clients Slider
      */
+    /*
     new Swiper('.clients-slider', {
       speed: 400,
       loop: true,
@@ -248,13 +249,13 @@ ActiveStorage.start()
     /**
      * Animation on scroll
      */
-    window.addEventListener('load', () => {
+    /*window.addEventListener('load', () => {
       AOS.init({
         duration: 1000,
         easing: "ease-in-out",
         once: true,
         mirror: false
       });
-    });
+    });*/
   
   })()

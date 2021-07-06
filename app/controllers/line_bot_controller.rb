@@ -62,7 +62,8 @@ class LineBotController < ApplicationController
           }
           client.push_message(userId, message)
         end
-      when Line::Bot::Event::Follow
+      when Line::Bot::Event::Follow]
+        
         message = {
           type: 'text',
           text: "nosakaneへようこそ！"

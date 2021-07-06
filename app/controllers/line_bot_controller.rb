@@ -1,7 +1,7 @@
 class LineBotController < ApplicationController
   require 'line/bot'
 
-  URL_DOMAIN = "http://localhost:3000".freeze
+  URL_DOMAIN = "https://nosakane.herokuapp.com/".freeze
 
   # 環境変数はheroku側で管理
   def client

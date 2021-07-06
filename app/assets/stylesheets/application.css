@@ -528,7 +528,6 @@ section {
   .breadcrumbs ol li {
     display: inline-block;
   }
-<<<<<<< feature/#78
   
   .contact .info .email:hover i, .contact .info .address:hover i, .contact .info .phone:hover i {
     background: #eb5d1e;
@@ -663,86 +662,6 @@ section {
     text-align: left;
   }
   
-=======
-}
-
-/*--------------------------------------------------------------
-# About
---------------------------------------------------------------*/
-.about h3 {
-  font-weight: 700;
-  font-size: 34px;
-  color: #4e4039;
-}
-
-.about h4 {
-  font-size: 20px;
-  font-weight: 700;
-  margin-top: 5px;
-  color: #7a6960;
-}
-
-.about i {
-  font-size: 48px;
-  margin-top: 15px;
-  color: #f39e7a;
-}
-
-.about p {
-  font-size: 15px;
-  color: #5a6570;
-}
-
-@media (max-width: 991px) {
-  .about .about-img img {
-    max-width: 70%;
-  }
-}
-
-@media (max-width: 767px) {
-  .about .about-img img {
-    max-width: 90%;
-  }
-}
-
-/*--------------------------------------------------------------
-# Footer
---------------------------------------------------------------*/
-  {
-  background: #fff;
-  padding: 0 0 30px 0;
-  color: #212529;
-  font-size: 14px;
-  background: #fef8f5;
-}
-
-.footer-newsletter {
-  padding: 50px 0;
-  background: #fef8f5;
-  text-align: center;
-  font-size: 15px;
-}
-
-.footer-newsletter h4 {
-  font-size: 24px;
-  margin: 0 0 20px 0;
-  padding: 0;
-  line-height: 1;
-  font-weight: 600;
-  color: #4e4039;
-}
-
-.footer-newsletter form {
-  margin-top: 30px;
-  background: #fff;
-  padding: 6px 10px;
-  position: relative;
-  border-radius: 4px;
-  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
-  text-align: left;
-}
-
->>>>>>> develop
 .footer-newsletter form input[type="email"] {
   border: 0;
   padding: 4px 4px;

@@ -44,6 +44,24 @@ class LineBotController < ApplicationController
       end
       
       case event
+      when Line::Bot::Event::Postback
+        p event
+        if report.planned_at = event["postback"]["params"]["datetime"]
+          report.save
+          student.state = 4
+          student.save
+          message = {
+            type: 'text',
+            text: "詳細を入力してください。"
+          }
+          client.push_message(userId, message)
+        else
+          message = {
+            type: 'text',
+            text: "日付を確認できません。"
+          }
+          client.push_message(userId, message)
+        end
       when Line::Bot::Event::Follow
         message = {
           type: 'text',
@@ -106,30 +124,24 @@ class LineBotController < ApplicationController
             if event.message['text'].include?("あ")
               # インターンシップ
               report.report_type_id = 1
-              student.state = 4
 						elsif event.message['text'].include?("い")
               # 就活イベント
               report.report_type_id = 2
-              student.state = 4
             elsif event.message['text'].include?("う")
               # 説明会
               report.report_type_id = 3
-              student.state = 4
             elsif event.message['text'].include?("え")
               # 筆記試験
               report.report_type_id = 4
-              student.state = 4
             elsif event.message['text'].include?("お")
               # 面接
               report.report_type_id = 5
-              student.state = 4
             else
               message = {
                 type: "text",
                 text: "番号が確認できません。\nもう一度入力してください。\n1️⃣インターンシップ\n2️⃣就活イベント\n3️⃣説明会\n4️⃣筆記試験\n5️⃣面接"
               }
               client.push_message(userId, message)
-              student.state = 3
             end
 
             student.save
@@ -171,24 +183,8 @@ class LineBotController < ApplicationController
               }
             }
             client.push_message(userId, message)
+
           when 4
-            if report.planned_at = DateTime.parse(event.postback.param.datetime)
-              report.save
-              student.state = 5
-              student.save
-              message = {
-                type: 'text',
-                text: "詳細を入力してください。"
-              }
-              client.push_message(userId, message)
-            else
-              message = {
-                type: 'text',
-                text: "日付を確認できません。"
-              }
-              client.push_message(userId, message)
-            end
-          when 5
             report.report_detail = event.message['text']
             message = {
               type: 'text',
@@ -225,34 +221,8 @@ class LineBotController < ApplicationController
             text: "坂根スタンプ、LINEスタンプストアで好評発売中！"
           }
           client.push_message(userId, message)
-        when Line::Bot::Event::Postback
-          if student.state == 4
         end
       end
     }
   end
-
-  # private
-  # def check_button(msg)# LINEのYES/NOの確認メッセージを表示させる
-  # {
-  #   "type": "template",
-  #   "altText": "this is a confirm template",
-  #   "template": {
-  #     "type": "confirm",
-  #     "text": msg,
-  #     "actions": [
-  #         {
-  #           "type": "message",
-  #           "label": "はい",
-  #           "text": "はい"
-  #         },
-  #         {
-  #           "type": "message",
-  #           "label": "いいえ",
-  #           "text": "いいえ"
-  #         }
-  #     ],
-  #   }
-  # }
-  # end
 end

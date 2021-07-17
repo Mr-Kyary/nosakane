@@ -1,0 +1,33 @@
+<% if admin_signed_in? %>
+  <h1>学生一覧</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>学生番号</th>
+        <th>名前</th>
+        <th>LineアカウントID</th>
+        <th>LINEの状態</th>
+        <th>作成中のレポートID</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @students.each do |student| %>
+        <tr>
+          <td><%= student.student_id %></td>
+          <td><%= student.name %></td>
+          <td><%= student.line_account_id %></td>
+          <td><%= student.state %></td>
+          <td><%= student.report_id_in_progress %></td>
+          <td><%= link_to '詳細', student, class: "btn btn-primary btn-sm" %></td>
+          <td><%= link_to '編集', edit_student_path(student), class: "btn btn-primary btn-sm" %></td>
+          <td><%= link_to '削除', student, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary btn-sm" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <% to_top %>
+<% end %>
+<%= link_to 'New Student', new_student_path %>

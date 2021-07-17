@@ -1,0 +1,24 @@
+<% if admin_signed_in? %>
+  <h1>投稿一覧</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>投稿種別</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @report_types.each do |report_type| %>
+        <tr>
+          <td><%= report_type.report_type_name %></td>
+          <td><%= link_to '詳細', report_type, class: "btn btn-primary btn-sm" %></td>
+          <td><%= link_to '編集', edit_report_type_path(report_type), class: "btn btn-primary btn-sm" %></td>
+          <td><%= link_to '削除', report_type, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary btn-sm" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <% to_top %>
+<% end %>

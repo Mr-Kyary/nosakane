@@ -1,0 +1,39 @@
+<section id="hero" class="d-flex align-items-center">
+  <div class="container">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,200' rel='stylesheet' type='text/css'>
+
+    <div class="container">
+      <div class="row login_box">
+        <div class="col-md-12 col-xs-12" align="center">
+          <div class="line">
+            <h3>ログイン</h3>
+          </div>
+        </div>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="col-md-12 col-xs-12 login_control">
+            <div class="control">
+              <div class="label">
+                <%= f.label :email, "メールアドレス" %><br />
+              </div>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder:"sample@sample.com" %>
+            </div>
+            <div class="control">
+              <div class="label">
+                <%= f.label :password, "パスワード" %>
+              </div>
+              <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+            </div>
+            <div align="center">
+              <%= f.submit "ログイン", class: "btn btn-orang" %>
+            </div>
+          </div>
+        <% end %>
+        <%= render "users/shared/links" %>
+      </div>
+    </div>
+  </div>
+</section>

@@ -11,41 +11,65 @@
     <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-
     <%= favicon_link_tag('favicon.png') %>
     <link href="assets/image/apple-touch-icon.png" rel="apple-touch-icon">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Tokyo+Zoo&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
   </head>
 
   <body class="container">
-    <header id="header" class="fixed-top d-flex align-items-center">
-      <div class="container d-flex align-items-center justify-content-between">
-        <div class="logo">
-          <h1 class="text-light"><%= link_to("noSakane", "/", class: "navbar-brand") %></h1>
+    <div class="header-wrapper">
+      <header class="header">
+        <div class="container d-flex align-items-center justify-content-between">
+          <div class="logo">
+            <h1 class="logo-text"><%= link_to(image_tag("logo.png"), "/", class: "navbar-brand") %></h1>
+          </div>
+          <nav class="navbar">
+            <ul class="list-inline">
+              <li class="list-inline-item"><a class="nav-link scrollto" href="/about">About nosakane?</a></li>
+              <% if admin_signed_in? %>
+                <li class="list-inline-item"><%= link_to("学生一覧", "/students", class: "nav-link scrollto") %></li>
+                <li class="list-inline-item"><%= link_to("投稿一覧", "/reports", class: "nav-link scrollto") %></li>
+                <li class="list-inline-item"><%= link_to("投稿種別一覧", "/report_types", class: "nav-link scrollto") %></li>
+                <li class="list-inline-item"><%= link_to("会社一覧", "/companies", class: "nav-link scrollto") %></li>
+                <li><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %></li>
+              <% else %>
+                <% if user_signed_in? %>
+                  <li class="list-inline-item">
+                    Hello,
+                    <strong>
+                      <%= link_to(Student.find_by(student_id: current_user.student_id).name, "/reports") %>
+                    </strong>さん
+                  </li>
+                  <li>
+                    <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+                  </li>
+                <% else %>
+                  <li class="list-inline-item"><a class="btn btn-primary" href="/users/sign_in">ログイン</a></li>
+                  <li class="list-inline-item"><a class="btn btn-primary" href="/users/sign_up">新規登録</a></li>
+                <% end %>
+              <% end %>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+          </nav>
         </div>
-
-        <nav id="navbar" class="navbar">
-          <ul class="list-inline">
-            <li class="list-inline-item"><a class="nav-link scrollto" href="#">About nosakane?</a></li>
-            <% if admin_signed_in? %>
-              <li class="list-inline-item"><%= link_to("学生一覧", "/students", class: "nav-link scrollto") %></li>
-              <li class="list-inline-item"><%= link_to("投稿一覧", "/reports", class: "nav-link scrollto") %></li>
-              <li class="list-inline-item"><%= link_to("投稿種別一覧", "/report_types", class: "nav-link scrollto") %></li>
-              <li class="list-inline-item"><%= link_to("会社一覧", "/companies", class: "nav-link scrollto") %></li>
-            <% end %>
-            <li class="list-inline-item"><a class="btn btn-primary" href="/users/sign_in">ログイン</a></li>
-            <li class="list-inline-item"><a class="btn btn-primary" href="/users/sign_up">新規登録</a></li>
-          </ul>
-          <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav>
-      </div>
-    </header>
-    <%= yield %>
-    <footer id="footer">
-      <div class="footer-top">
+      </header>
+    </div>
+    
+    <div class="main-wrapper">
+      <div class="main">
         <div class="container">
-          <div class="footer-content contact">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <footer class="footer">
+        <div class="container d-flex align-items-center justify-content-between flex-wrap align-content-center">
+          <div class="footer-content contact p-2">
             <h3>nosakane</h3>
             <p>
               Vincity Street, Tenjin <br>
@@ -56,7 +80,7 @@
             </p>
           </div>
 
-          <div class="footer-content links">
+          <div class="footer-content links p-2">
             <h4>Useful Links</h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i><%= link_to("出雲コアカレッジ", "https://www.icc.core.ac.jp/") %></li>
@@ -64,7 +88,7 @@
             </ul>
           </div>
 
-          <div class="footer-content links">
+          <div class="footer-content links p-2">
             <h4>Developed by</h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i> <%= link_to("Karino", "https://github.com/Mr-Kyary") %></li>
@@ -74,25 +98,13 @@
             </ul>
           </div>
 
-          <div class="footer-content links">
+          <div class="footer-content links p-2">
             <h4>Our thoughts</h4>
             <p>"How log do you estimate if you develop system for sharing job-hunting activities with students?" said Sakane Sensei. </br>That is the begining of this project.</br>Hide-chan happed to overhear that conversations.</br><strong>"Winter is coming."</strong> said Hide-chan</p>
           </div>
-      </div>
-
-      <div class="container py-4">
-        <div class="copyright">
-          &copy; Copyright <strong><span>nosakane</span></strong>. All Rights Reserved
         </div>
-        <div class="credits">
-          <!-- All the links in the footer should remain intact. -->
-          <!-- You can delete the links only if you purchased the pro version. -->
-          <!-- Licensing information: https://bootstrapmade.com/license/ -->
-          <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/ninestars-free-bootstrap-3-theme-for-creative/ -->
-          <%= link_to("Sign up as Administor", "/admin/sign_in", class: "nav-link scrollto") %>
-          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-        </div>
-      </div>
-    </footer>
+      </footer>
+    </div>
+    <p><%= link_to 'Are you an Administor?', "/admins/sign_in" %></p>
   </body>
 </html>

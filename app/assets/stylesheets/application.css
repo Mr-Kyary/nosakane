@@ -1,14 +1,60 @@
+/* header */
+.header-wrapper {
+    width: 100%;
+    margin: 20px 0;
+    border-radius: 20px;
+    background-color: #8AB6D6;
+}
+.header {
+    margin: auto;
+    padding: 10px;
+}
+.list-inline-item .nav-link {
+    color: black;
+}
+/* header ここまで */
+
 /* top */
+.btns {
+    width: 150px;
+}
+.main-wrapper {
+    width: 100%;
+    margin: 20px 0;
+    border-radius: 20px;
+    background-color: #FBE0C4;
+}
+.contents-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+.contents-wrapper .contents {
+    width: calc(33.3% - 10px);
+    margin: 5px;
+}
 .registrartion .container {
     text-align: center;
 }
 /* top ここまで*/
 
 /* footer */
-.footer-top .container div {
-    width: 300px;
-    height: 250px;
-    display: inline-block;
+.footer-content {
+    width: 25%;
+}
+.footer-wrapper {
+    width: 100%;
+    height: auto;
+    margin: 20px 0 0 0;
+    border-radius: 20px;
+    background-color: #8AB6D6;
+}
+footer {
+    margin: auto;
+    padding: 10px;
+}
+.container .fotter-content {
     vertical-align: bottom;
+    display: inline-block;
 }
 /* footer ここまで */

@@ -1,32 +1,15 @@
-<section class="hero d-flex align-items-center">
-  <div class="container">
-    <div class="row gy-4">
-      <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
-        <h1>noSakane is better than Sakane.</h1>
-        <h2>sudo rm sakane</h2>
-        <div>
-          <a href="#" class="btn btn-primary">Get Started</a>
-        </div>
-      </div>
-      <div class="col-lg-6 order-1 order-lg-2 hero-img">
-        <%= image_tag 'hero.svg', class: "img-fluid animated" %>
-      </div>
+<div class="row gy-4">
+  <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
+    <h1>noSakane is better than Sakane.</h1>
+    <h2>sudo rm sakane</h2>
+    <div>
+      <%= link_to 'Get Started.', "/users/sign_up", class: "btn btn-primary" %>
     </div>
+    <p data-aos="fade-up" data-aos-delay="100">
+      就職活動の報告を行うシステムです。
+    </p>
   </div>
-</section>
-
-<section id="about" class="about">
-  <div class="container">
-    <div class="row justify-content-between">
-      <div class="col-lg-5 d-flex align-items-center justify-content-center about-img">
-        <img src="assets/img/about-img.svg" class="img-fluid" alt="" data-aos="zoom-in">
-      </div>
-      <div class="col-lg-6 pt-5 pt-lg-0">
-        <h3 data-aos="fade-up">About noSakane</h3>
-        <p data-aos="fade-up" data-aos-delay="100">
-          就職活動の報告を行うシステムです。
-        </p>
-      </div>
-    </div>
+  <div class="col-lg-6 order-1 order-lg-2 hero-img">
+    <%= image_tag 'hero.svg', class: "img-fluid animated" %>
   </div>
-</section>
+</div>

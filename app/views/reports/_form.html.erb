@@ -15,7 +15,7 @@
 
       <div class="field">
         <%= form.label :report_type_id, "投稿種別：" %>
-        <%= form.collection_select :report_type_id, ReportType.all, :id, :report_type_name %>
+        <%= form.collection_select :report_type_id, ReportType.all, :id, :report_type_name, class: "btn btn-secondary dropdown-toggle" %>
       </div>
 
       <div class="field">
@@ -31,12 +31,11 @@
 
       <div class="field">
         <%= form.label :report_detail, "レポート詳細：" %>
-        <%= form.text_area :report_detail %>
+        <%= form.text_area :report_detail, class: "form-control", placeholder: "例）合否は6月末までに連絡予定" %>
       </div>
 
-
       <div class="actions">
-        <%= form.submit "投稿" %>
+        <%= form.submit "投稿", class: "btn btn-primary btn-lg" %>
       </div>
     <% end %>
   </div>

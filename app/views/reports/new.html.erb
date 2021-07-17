@@ -1,7 +1,9 @@
-<h1>New Report</h1>
-<%# unless user_signed_in? %>
-  <%# to_signin %>
-<%# end %>
-<%= render 'form', report: @report %>
-
-<%= link_to 'Back', reports_path %>
+<div class="main-wrapper">
+  <div class="main">
+    <div class="container">
+      <h1>新規投稿</h1>
+      <%= render 'form', report: @report %>
+      <%= link_to 'Back', reports_path %>
+    </div>
+  </div>
+</div>

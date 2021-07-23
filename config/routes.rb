@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get 'home/reports'
   get 'home/companies'
   get 'calendar/index', to: 'calendar#index'
+  get 'calendar/user', to: 'calendar#user'
+  get 'calendar/student', to: 'calendar#student'
   get '/about', to:'home#about'
   get '/mypage', to: 'home#mypage'
   ############get ここまで############
